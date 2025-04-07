@@ -1,54 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef enum { INT, STR } Type;
-
-typedef enum { FUNCTION, VARIABLE, PARAMETER } LexemeType;
-
-typedef union {
-    int value_int;
-    char* value_str;
-} Value;
-
-typedef struct {
-    Type type;
-    int index;
-    char* name;
-} Variable;
-
-typedef struct {
-    Type type;
-    int n_params;
-    char* name;
-} Function;
-
-typedef struct {
-    Type type;
-    Function* owner;
-    int index;
-    char* name;
-} Parameter;
-
-typedef union {
-    Variable var;
-    Function func;
-    Parameter param;
-} LexemeUnion;
-
-typedef struct {
-    LexemeType type;
-    LexemeUnion lexeme;
-} Lexeme;
-
-typedef struct Stack {
-    int n_lexemes;
-
-    Lexeme** lexemes;
-
-    struct Stack** parent;
-    struct Stack** children;
-} Stack;
-
+#include "stack.h"
 
 /**
  * Cria uma nova stack.
