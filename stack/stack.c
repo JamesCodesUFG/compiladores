@@ -1,25 +1,23 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "stack.h"
+#include "stack.h" 
 
 /**
- * Cria uma nova stack.
+ * Inicia uma nova stack.
  * 
- * @param lexeme
- * @param value
- * 
- * @return 
+ * @return Endereço da nova stack.
  */
 Stack* init() {
     Stack* stack = malloc(sizeof(Stack));
 
     stack->n_lexemes = 0;
+    stack->n_children = 0;
 
     stack->lexemes = malloc(0);
 
     stack->parent = NULL;
-    stack->children = NULL;
+    stack->children = malloc(0);
 
     return stack;
 }
@@ -27,51 +25,63 @@ Stack* init() {
 /**
  * Sobe uma camada após adicionar uma nova camada à pilha.
  * 
- * @param current Endereço da stack atual.
+ * @param stack Endereço da stack atual.
  * 
  * @return Novo endereço de Stack.
  */
-void up(Stack* current) {
+void up(Stack* stack) {
     Stack* new = init();
 
-    new->parent = current;
+    new->parent = stack;
     
-    current->children;
+    stack->children = realloc(stack->children, ++stack->n_children);
 
     return new;
+}
+
+static void delete_() {
+
+}
+
+void delete() {
+
 }
 
 /**
  * Desce uma camada da pilha sem altera-la.
  * 
- * @param current Endereço da Stack atual.
+ * @param stack Endereço da Stack atual.
  * 
  * @return Novo endereço de Stack.
  */
-void down(Stack* current) {
-    return current->parent;
+void down(Stack* stack) {
+    return stack->parent;
+}
+
+static Lexeme* add(Stack* stack, LexemeType type) {
+    stack->lexemes = realloc(stack->lexemes, sizeof(Lexeme) * ++stack->n_lexemes);
+
+    stack->lexemes[stack->n_lexemes - 1] = malloc(sizeof(Lexeme));
+
+    stack->lexemes[stack->n_lexemes - 1]->type = type;
 }
 
 /**
  * Adiciona um novo lexema à lista de lexemas da stack.
  * 
- * @param current Ponteiro da Stack a ser manipulada.
+ * @param stack Ponteiro da Stack a ser manipulada.
  * @param lexema Ponteiro para lexema a ser adicionado.
  */
-void add(Stack* current, char* name, Type type, int index) {
-    current->n_lexemes++;
-    
-    current->lexemes = realloc(current->lexemes, sizeof(Lexeme) * current->n_lexemes);
+void add_var(Stack* stack, char* name, Type type, int index) {
+    add(stack, VARIABLE);
 
-    current->lexemes[current->n_lexemes - 1] = malloc(sizeof(Lexeme));
+    stack->lexemes[stack->n_lexemes - 1]->lexeme.func.name = malloc(strlen(name) * sizeof(char) + 1);;
+    strcpy(stack->lexemes[stack->n_lexemes - 1]->lexeme.func.name, name);
 
-    current->lexemes[current->n_lexemes - 1]->type = VARIABLE;
+    stack->lexemes[stack->n_lexemes - 1]->lexeme.var.type = type;
+    stack->lexemes[stack->n_lexemes - 1]->lexeme.var.index = index;
 
-    current->lexemes[current->n_lexemes - 1]->lexeme.var.name = name;
-    current->lexemes[current->n_lexemes - 1]->lexeme.var.type = type;
-    current->lexemes[current->n_lexemes - 1]->lexeme.var.index = index;
-
-    if (current->lexemes == NULL) {
+    if (stack->lexemes == NULL) {
         printf("Erro ao adicionar nova camada à stack.\n");
 
         exit(1);
@@ -81,23 +91,19 @@ void add(Stack* current, char* name, Type type, int index) {
 /**
  * Adiciona um novo lexema à lista de lexemas da stack.
  * 
- * @param current Ponteiro da Stack a ser manipulada.
+ * @param stack Ponteiro da Stack a ser manipulada.
  * @param lexema Ponteiro para lexema a ser adicionado.
  */
-void add(Stack* current, char* name, int n_params, Type r_type) {
-    current->n_lexemes++;
-    
-    current->lexemes = realloc(current->lexemes, sizeof(Lexeme) * current->n_lexemes);
+void add_func(Stack* stack, char* name, int n_params, Type r_type) {
+    add(stack, FUNCTION);
 
-    current->lexemes[current->n_lexemes - 1] = malloc(sizeof(Lexeme));
+    stack->lexemes[stack->n_lexemes - 1]->lexeme.func.name = malloc(strlen(name) * sizeof(char) + 1);;
+    strcpy(stack->lexemes[stack->n_lexemes - 1]->lexeme.func.name, name);
 
-    current->lexemes[current->n_lexemes - 1]->type = FUNCTION;
+    stack->lexemes[stack->n_lexemes - 1]->lexeme.func.n_params = n_params;
+    stack->lexemes[stack->n_lexemes - 1]->lexeme.func.type = r_type;
 
-    current->lexemes[current->n_lexemes - 1]->lexeme.func.name = name;
-    current->lexemes[current->n_lexemes - 1]->lexeme.func.n_params = n_params;
-    current->lexemes[current->n_lexemes - 1]->lexeme.func.type = r_type;
-
-    if (current->lexemes == NULL) {
+    if (stack->lexemes == NULL) {
         printf("Erro ao adicionar nova camada à stack.\n");
 
         exit(1);
@@ -107,24 +113,20 @@ void add(Stack* current, char* name, int n_params, Type r_type) {
 /**
  * Adiciona um novo lexema à lista de lexemas da stack.
  * 
- * @param current Ponteiro da Stack a ser manipulada.
+ * @param stack Ponteiro da Stack a ser manipulada.
  * @param lexema Ponteiro para lexema a ser adicionado.
  */
-void add(Stack* current, char* name, Type type, int index, Lexeme* owner) {
-    current->n_lexemes++;
-    
-    current->lexemes = realloc(current->lexemes, sizeof(Lexeme) * current->n_lexemes);
+void add_param(Stack* stack, char* name, Type type, int index, Lexeme* owner) {
+    add(stack, PARAMETER);
 
-    current->lexemes[current->n_lexemes - 1] = malloc(sizeof(Lexeme));
+    stack->lexemes[stack->n_lexemes - 1]->lexeme.param.name = malloc(strlen(name) * sizeof(char) + 1);
+    strcpy(stack->lexemes[stack->n_lexemes - 1]->lexeme.param.name, name);
 
-    current->lexemes[current->n_lexemes - 1]->type = PARAMETER;
+    stack->lexemes[stack->n_lexemes - 1]->lexeme.param.type = type;
+    stack->lexemes[stack->n_lexemes - 1]->lexeme.param.index = index;
+    stack->lexemes[stack->n_lexemes - 1]->lexeme.param.owner = owner;
 
-    current->lexemes[current->n_lexemes - 1]->lexeme.param.name = name;
-    current->lexemes[current->n_lexemes - 1]->lexeme.param.type = type;
-    current->lexemes[current->n_lexemes - 1]->lexeme.param.index = index;
-    current->lexemes[current->n_lexemes - 1]->lexeme.param.owner = owner;
-
-    if (current->lexemes == NULL) {
+    if (stack->lexemes == NULL) {
         printf("Erro ao adicionar nova camada à stack.\n");
 
         exit(1);
@@ -134,18 +136,28 @@ void add(Stack* current, char* name, Type type, int index, Lexeme* owner) {
 /**
  * Encontra um lexema na pilha.
  * 
- * @param current
+ * @param stack
  * @param lexeme
  * 
  * @return 
  */
-Lexeme* find(Stack* current, char* lexeme) {    
-    while (current->parent != NULL) {
-        for (int i = 0; i < current->n_lexemes; i++) {
-            if (!strcmp(current->lexemes[i]->value.value_str, lexeme)) {
-                return current->lexemes[i];
+Lexeme* find(Stack* stack, char* lexeme) {    
+    while (stack != NULL) {
+        for (int i = 0; i < stack->n_lexemes; i++) {
+            switch(stack->lexemes[i]->type) {
+                case VARIABLE:
+                    if (!strcmp(stack->lexemes[i]->lexeme.var.name, lexeme)) return stack->lexemes[i];
+                    break;
+                case FUNCTION:
+                    if (!strcmp(stack->lexemes[i]->lexeme.func.name, lexeme)) return stack->lexemes[i];
+                    break;
+                case PARAMETER:
+                    if (!strcmp(stack->lexemes[i]->lexeme.param.name, lexeme)) return stack->lexemes[i];
+                    break;
             }
         }
+
+        stack = stack->parent;
     }
 
     return NULL;

@@ -11,22 +11,16 @@
 
 # Execução
 
-## Step 1
-
-Criar arquivo `file-name.l`.
-
-## Step 2
-
-Compilar com o comando:
+Para executar o análisador léxico é necessário construir o executavel com o seguinte comando:
 
 ```bash
-flex file-name.l
+make lex
 ```
 
-## Step 3
-
-Compilar utilizando o gcc:
+Em seguida, é possível executar o programa com o seguinte comando:
 
 ```bash
-gcc lex.yy.c -o file-name
+./lex arquivo_de_teste
 ```
+
+Onde `arquivo_de_teste` é o nome do seu arquivo de teste da linguagem *goianinha*.
