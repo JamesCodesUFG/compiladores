@@ -48,12 +48,11 @@
 
     typedef struct Stack {
         int n_lexemes;
-        int n_children;
 
         Lexeme** lexemes;
 
+        struct Stack* child;
         struct Stack* parent;
-        struct Stack** children;
     } Stack;
 
     // -------------------- FUNCTIONS --------------------
@@ -67,5 +66,7 @@
     Lexeme* add_param(Stack* current, char* name, Type type, int index, Lexeme* owner);
 
     Lexeme* find(Stack* current, char* lexeme);
+
+    void delete(Stack* stack);
 
 #endif

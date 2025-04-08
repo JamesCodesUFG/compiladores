@@ -12,13 +12,12 @@ Stack* init() {
     Stack* stack = malloc(sizeof(Stack));
 
     stack->n_lexemes = 0;
-    stack->n_children = 0;
 
     stack->lexemes = malloc(0);
 
+    stack->child = NULL;
     stack->parent = NULL;
-    stack->children = malloc(0);
-
+    
     return stack;
 }
 
@@ -30,21 +29,31 @@ Stack* init() {
  * @return Novo endereço de Stack.
  */
 Stack* up(Stack* stack) {
-    Stack* new = init();
+    Stack* new_stack = init();
 
-    new->parent = stack;
+    new_stack->parent = stack;
     
-    stack->children = realloc(stack->children, ++stack->n_children);
+    stack->child = new_stack;
 
-    return new;
+    return new_stack;
 }
 
-static void delete_() {
+static void delete_(Stack* stack) {
+    for (int i = 0; i < stack->n_lexemes; i++) {
+        free(stack->lexemes[i]);
+    }
 
+    free(stack->lexemes);
+
+    stack = stack->parent;
+
+    free(stack->child);
 }
 
-void delete() {
-
+void delete(Stack* stack) {
+    while (stack != NULL) {
+        delete_(stack);
+    }
 }
 
 /**

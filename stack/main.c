@@ -38,21 +38,23 @@ int main() {
     Lexeme* find_2 = find(stack, "var_2");
     Lexeme* find_3 = find(stack, "func_1");
     Lexeme* find_4 = find(stack, "func_2");
-    Lexeme* find_5 = find(stack, "func_1");
-    Lexeme* find_6 = find(stack, "func_1");
+    Lexeme* find_5 = find(stack, "param_1");
 
     printf("Lexema 'var_1': %s", var_3 == find_1 ? "True" : "False");
     printf("Lexema 'var_2': %s", var_2 == find_2 ? "True" : "False");
-    printf("Lexema 'func_1': %s", func_2 == find_3 ? "True" : "False");
-    printf("Lexema 'var_1': %s", var_1 == find_1 ? "True" : "False");
-    printf("Lexema 'var_1': %s", var_1 == find_1 ? "True" : "False");
-    printf("Lexema 'var_1': %s", var_1 == find_1 ? "True" : "False");
+    printf("Lexema 'func_1': %s", func_1 == find_3 ? "True" : "False");
+    printf("Lexema 'func_2': %s", func_2 == find_4 ? "True" : "False");
+    printf("Lexema 'param_1': %s", param_4 == find_5 ? "True" : "False");
 
     stack = down(stack);
 
     Lexeme* find_7 = find(stack, "var_1");
     Lexeme* find_8 = find(stack, "func_1");
     Lexeme* find_9 = find(stack, "param_1");
+
+    printf("Lexema 'var_1': %s", var_1 == find_7 ? "True" : "False");
+    printf("Lexema 'func_1': %s", func_1 == find_8 ? "True" : "False");
+    printf("Lexema 'param_1': %s", param_1 == find_9 ? "True" : "False");
 
     delete(stack);
 
