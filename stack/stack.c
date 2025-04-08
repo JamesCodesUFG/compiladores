@@ -38,21 +38,23 @@ Stack* up(Stack* stack) {
     return new_stack;
 }
 
-static void delete_(Stack* stack) {
+static Stack* delete_(Stack* stack) {
+    Stack* parent = stack->parent;
+
     for (int i = 0; i < stack->n_lexemes; i++) {
         free(stack->lexemes[i]);
     }
 
     free(stack->lexemes);
 
-    stack = stack->parent;
-
     free(stack->child);
+
+    return parent;
 }
 
 void delete(Stack* stack) {
     while (stack != NULL) {
-        delete_(stack);
+        stack = delete_(stack);
     }
 }
 
@@ -64,7 +66,7 @@ void delete(Stack* stack) {
  * @return Novo endereço de Stack.
  */
 Stack* down(Stack* stack) {
-    return stack->parent;
+    return delete_(stack);
 }
 
 static Lexeme* add(Stack* stack, LexemeType type) {
@@ -183,4 +185,29 @@ Lexeme* find(Stack* stack, char* lexeme) {
     }
 
     return NULL;
+}
+
+void debug(Stack* stack) {
+    while (stack != NULL) {
+        printf("n_lexemes: %d\n", stack->n_lexemes);
+        printf("lexemes: [");
+
+        for (int i = 0; i < stack->n_lexemes; i++) {
+            switch (stack->lexemes[i]->type) {
+                case VARIABLE:
+                    printf(" '%s'", stack->lexemes[i]->lexeme.var.name);
+                    break;
+                case FUNCTION:
+                    printf(" '%s'", stack->lexemes[i]->lexeme.func.name);
+                    break;
+                case PARAMETER:
+                    printf(" '%s'", stack->lexemes[i]->lexeme.param.name);
+                    break;
+            }
+        }
+
+        printf("\n\n");
+
+        stack = stack->parent;
+    }
 }

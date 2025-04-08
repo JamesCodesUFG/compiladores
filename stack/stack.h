@@ -69,4 +69,6 @@
 
     void delete(Stack* stack);
 
+    void debug(Stack* stack);
+
 #endif
