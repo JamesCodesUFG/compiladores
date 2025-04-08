@@ -59,12 +59,12 @@
     // -------------------- FUNCTIONS --------------------
     Stack* init();
 
-    void up(Stack* current);
-    void down(Stack* current);
+    Stack* up(Stack* current);
+    Stack* down(Stack* current);
 
-    void add_var(Stack* current, char* name, Type type, int index);
-    void add_func(Stack* current, char* name, int n_params, Type r_type);
-    void add_param(Stack* current, char* name, Type type, int index, Lexeme* owner);
+    Lexeme* add_var(Stack* current, char* name, Type type, int index);
+    Lexeme* add_func(Stack* current, char* name, int n_params, Type r_type);
+    Lexeme* add_param(Stack* current, char* name, Type type, int index, Lexeme* owner);
 
     Lexeme* find(Stack* current, char* lexeme);
 

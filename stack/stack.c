@@ -29,7 +29,7 @@ Stack* init() {
  * 
  * @return Novo endereço de Stack.
  */
-void up(Stack* stack) {
+Stack* up(Stack* stack) {
     Stack* new = init();
 
     new->parent = stack;
@@ -54,7 +54,7 @@ void delete() {
  * 
  * @return Novo endereço de Stack.
  */
-void down(Stack* stack) {
+Stack* down(Stack* stack) {
     return stack->parent;
 }
 
@@ -67,12 +67,14 @@ static Lexeme* add(Stack* stack, LexemeType type) {
 }
 
 /**
- * Adiciona um novo lexema à lista de lexemas da stack.
+ * Adiciona um novo lexema do tipo variável à lista de lexemas da stack.
  * 
- * @param stack Ponteiro da Stack a ser manipulada.
- * @param lexema Ponteiro para lexema a ser adicionado.
+ * @param stack Stack a ser manipulada.
+ * @param name Nome da variável.
+ * @param type Tipo da variável.
+ * @param index Posição em que a variável aparece.
  */
-void add_var(Stack* stack, char* name, Type type, int index) {
+Lexeme* add_var(Stack* stack, char* name, Type type, int index) {
     add(stack, VARIABLE);
 
     stack->lexemes[stack->n_lexemes - 1]->lexeme.func.name = malloc(strlen(name) * sizeof(char) + 1);;
@@ -86,15 +88,19 @@ void add_var(Stack* stack, char* name, Type type, int index) {
 
         exit(1);
     }
+
+    return stack->lexemes[stack->n_lexemes - 1];
 }
 
 /**
  * Adiciona um novo lexema à lista de lexemas da stack.
  * 
- * @param stack Ponteiro da Stack a ser manipulada.
- * @param lexema Ponteiro para lexema a ser adicionado.
+ * @param stack Stack a ser manipulada.
+ * @param name Nome da variável.
+ * @param n_params Quantidade de parâmetros.
+ * @param type Tipo do valor de retorno.
  */
-void add_func(Stack* stack, char* name, int n_params, Type r_type) {
+Lexeme* add_func(Stack* stack, char* name, int n_params, Type r_type) {
     add(stack, FUNCTION);
 
     stack->lexemes[stack->n_lexemes - 1]->lexeme.func.name = malloc(strlen(name) * sizeof(char) + 1);;
@@ -108,15 +114,20 @@ void add_func(Stack* stack, char* name, int n_params, Type r_type) {
 
         exit(1);
     }
+
+    return stack->lexemes[stack->n_lexemes - 1];
 }
 
 /**
  * Adiciona um novo lexema à lista de lexemas da stack.
  * 
- * @param stack Ponteiro da Stack a ser manipulada.
- * @param lexema Ponteiro para lexema a ser adicionado.
+ * @param stack Stack a ser manipulada.
+ * @param name Nome da variável.
+ * @param type Tipo da variável.
+ * @param index Posição em que a variável aparece.
+ * @param owner Lexeme do tipo função a qual o parâmetro pertence.
  */
-void add_param(Stack* stack, char* name, Type type, int index, Lexeme* owner) {
+Lexeme* add_param(Stack* stack, char* name, Type type, int index, Lexeme* owner) {
     add(stack, PARAMETER);
 
     stack->lexemes[stack->n_lexemes - 1]->lexeme.param.name = malloc(strlen(name) * sizeof(char) + 1);
@@ -131,15 +142,17 @@ void add_param(Stack* stack, char* name, Type type, int index, Lexeme* owner) {
 
         exit(1);
     }
+
+    return stack->lexemes[stack->n_lexemes - 1];
 }
 
 /**
  * Encontra um lexema na pilha.
  * 
- * @param stack
- * @param lexeme
+ * @param stack Stack a qual o lexema pertence.
+ * @param lexeme Nome do lexema.
  * 
- * @return 
+ * @return Endereço do lexema ou NULL quando não encontrado.
  */
 Lexeme* find(Stack* stack, char* lexeme) {    
     while (stack != NULL) {
