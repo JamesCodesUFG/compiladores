@@ -48,7 +48,7 @@ int main() {
     printf("Lexema 'func_2': %s\n", func_2 == find_4 ? "True" : "False");
     printf("Lexema 'param_1': %s\n", param_4 == find_5 ? "True" : "False");
 
-    //stack = down(stack);
+    stack = down(stack);
 
     Lexeme* find_7 = find(stack, "var_1");
     Lexeme* find_8 = find(stack, "func_1");
