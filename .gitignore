@@ -1,0 +1,5 @@
+# Ignorar todos os arquivos .exe
+*.exe
+
+# Ignorar o arquivo chamado 'goianinha'
+goianinha

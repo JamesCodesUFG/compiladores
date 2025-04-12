@@ -21,8 +21,6 @@ int main(int argc, char** argv) {
         exit(1);
     }
 
-    
-
     yyin = fopen(argv[1], "r");
 
     int token = yylex();
