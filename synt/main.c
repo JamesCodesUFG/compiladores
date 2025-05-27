@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "goianinha.tab.h"
+
 extern int yylex();
 extern char* yytext;
 
@@ -16,13 +18,7 @@ int main(int argc, char** argv) {
 
     yyin = fopen(argv[1], "r");
 
-    int token = yylex();
+    yyparse();
 
-    while (token) {
-        printf("Token: %d, Lexema: %s\n", token, yytext);
-        
-        token = yylex();
-    }
-
-    return 1;
+    return 0;
 }

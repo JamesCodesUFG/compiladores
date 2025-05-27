@@ -1,4 +1,8 @@
-%{ /* definições */ %}
+%{
+
+#include "goianinha.tab.h"
+
+%}
 
 %option yylineno
 
@@ -9,14 +13,14 @@ ID          [a-z_][a-zA-Z0-9_]*
 ATRIBUIR    =
 
 CHAR        [^\n\"]
-STR         \"{CHAR}*\"
+STRING         \"{CHAR}*\"
 DIGITO      [0-9]
 
 IGUAL       ==
 NAO_IGUAL   !=
 MAIOR       >
-MAIOR_IGUAL >=
 MENOR       <
+MAIOR_IGUAL >=
 MENOR_IGUAL <=
 MAIS        \+
 MENOS       \-
@@ -24,11 +28,10 @@ MULT        \*
 DIVIDE      \/
 NEGATIVA    !
 
-I_BLOCO     \{
-F_BLOCO     \}
-
-I_PARENT    \(
-F_PARENT    \)
+ABR_BLOCO   \{
+FCH_BLOCO   \}
+ABR_PARENT    \(
+FCH_PARENT    \)
 
 VIR         ,
 FIM         \;
@@ -39,17 +42,17 @@ FIM         \;
 
 programa        { return PROGRAMA; }
 
-{I_BLOCO}       { return ABR_BLOCO; }
-{F_BLOCO}       { return FCH_BLOCO; }
+{ABR_BLOCO}     { return ABR_BLOCO; }
+{FCH_BLOCO}     { return FCH_BLOCO; }
 
-{I_PARENT}       { return ABR_PARENT; }
-{F_PARENT}       { return FCH_PARENT; }
+{ABR_PARENT}    { return ABR_PARENT; }
+{FCH_PARENT}    { return FCH_PARENT; }
 
-int             { return INT; }
-char            { return CHAR; }
+int             { return TIPO_INT; }
+char            { return TIPO_CHAR; }
 
-{DIGITO}+       { return NUMERO; }
-{STR}           { return TEXTO; }
+{DIGITO}+       { return DIGITO; }
+{STRING}        { return STRING; }
 
 leia            { return LEIA; }
 escreva         { return ESCREVA; }
@@ -66,8 +69,10 @@ e               { return E; }
 
 {IGUAL}         { return IGUAL; }
 {NAO_IGUAL}     { return NAO_IGUAL; }
-{MAIOR_IGUAL}   { return MAIOR_IGUA; }
-{MENOR_IGUAL}   { return MENOR_IGUA; }
+{MAIOR}         { return MAIOR; }
+{MENOR}         { return MENOR; }
+{MAIOR_IGUAL}   { return MAIOR_IGUAL; }
+{MENOR_IGUAL}   { return MENOR_IGUAL; }
 {MAIS}          { return MAIS; }
 {MENOS}         { return MENOS; }
 {MULT}          { return MULT; }
@@ -76,7 +81,7 @@ e               { return E; }
 
 retorne         { return RETORNE; }
 
-{VIR}           { return VIR; }
+{VIR}           { return VIRGULA; }
 {FIM}           { return FIM; }
 
 {ATRIBUIR}      { return ATRIBUIR; }
@@ -85,9 +90,9 @@ retorne         { return RETORNE; }
 
 "/*".*"*/"      {}
 
-"/*"[^("/*")]   { printf("ERRO NA LINHA %d: COMENTARIO NAO TERMINA.\n", yylineno); return FLAG_ERROR_COMENTARIO ; }
-\"[^\"]*        { printf("ERRO NA LINHA %d: CADEIA DE CARACTERES OCUPA MAIS DE UMA LINHA OU NAO TERMINA.\n", yylineno); return FLAG_ERROR_CADEIA ; }
-.               { printf("ERRO NA LINHA %d: CARACTERE INVALIDO.\n", yylineno); return FLAG_ERROR_CARACTERE ; }
+"/*"[^("/*")]   { printf("ERRO: lexicon error in line %d. Comment doesn't end.\n", yylineno); return YYerror; }
+\"[^\"]*        { printf("ERRO: lexicon error in line %d: String of characters occupies more than one line or doesn't end.\n", yylineno); return YYerror; }
+.               { printf("ERRO: lexicon error in line %d: Invalid character.\n", yylineno, yytext); return YYerror; }
 
 %%
 
