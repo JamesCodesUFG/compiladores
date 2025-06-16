@@ -1,12 +1,12 @@
 # Atividade
 
-![image](./source/images/1-AnalisadorLexico-1.png)
-![image](./source/images/1-AnalisadorLexico-2.png)
-![image](./source/images/1-AnalisadorLexico-3.png)
-![image](./source/images/1-AnalisadorLexico-4.png)
-![image](./source/images/1-AnalisadorLexico-5.png)
-![image](./source/images/1-AnalisadorLexico-6.png)
-![image](./source/images/1-AnalisadorLexico-7.png)
+![image](./assets/images/1-AnalisadorLexico-1.png)
+![image](./assets/images/1-AnalisadorLexico-2.png)
+![image](./assets/images/1-AnalisadorLexico-3.png)
+![image](./assets/images/1-AnalisadorLexico-4.png)
+![image](./assets/images/1-AnalisadorLexico-5.png)
+![image](./assets/images/1-AnalisadorLexico-6.png)
+![image](./assets/images/1-AnalisadorLexico-7.png)
 
 
 # Execução
