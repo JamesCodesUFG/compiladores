@@ -2,6 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "tree.h"
+#include "tipos.h"
+
 #include "goianinha.tab.h"
 
 extern int yylex();
@@ -18,7 +21,7 @@ int main(int argc, char** argv) {
 
     yyin = fopen(argv[1], "r");
 
-    yyparse();
+    Raiz* raiz = yyparse();
 
     return 0;
 }

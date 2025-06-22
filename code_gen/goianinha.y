@@ -1,6 +1,17 @@
 %{
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <strings.h>
+
+#include "tipos.h"
+#include "tree.h"
+
+extern int yylex();
+extern int numLinha;
+extern int erroOrigem;
+extern char* yytext;
+extern FILE* yyin;
 
 %}
 
@@ -65,137 +76,137 @@
 %% /* PROGRAMA */
 
 programa: 
-    decl_func_var decl_prog { printf("Programa lido com sucesso.\n"); }
+    decl_func_var decl_prog { $$ = criarRaiz($1, $2) }
 ;
 
 decl_func_var:
-    { printf("decl_func_var: vazio.\n"); }
-    | tipo ID decl_var FIM decl_func_var { printf("decl_func_var: unico\n"); }
-    | tipo ID decl_func decl_func_var { printf("decl_func_var: multiplos\n"); }
+    { $$ = NULL; }
+    | tipo ID decl_var FIM decl_func_var { $$ = criarVariavelComTipo($1, $2, $3, $4); }
+    | tipo ID decl_func decl_func_var { $$ = criarFuncaoComTipo($1, $2, $3, $4); }
 ;
 
 decl_prog: 
-    PROGRAMA bloco { printf("decl_prog: %s\n"); }
+    PROGRAMA bloco { $$ = $2 }
 ;
 
 decl_var:
-    { printf("decl_var: vazio.\n"); }
-    | VIRGULA ID decl_var { printf("decl_var\n"); }
+    { $$ = NULL; }
+    | VIRGULA ID decl_var { $$ = criarVariavelSemTipo($2, $3); }
 ;
 
 decl_func:
-    ABR_PARENT lista_parametros FCH_PARENT bloco { printf("decl_func\n"); }
+    ABR_PARENT lista_parametros FCH_PARENT bloco { $$ = criarFuncaoSemTipo($2, $4); }
 ;
 
 lista_parametros:
-    { printf("lista_parametros: vazio.\n"); }
-    | lista_parametros_cont { printf("lista_parametros\n"); }
+    { $$ = NULL; }
+    | lista_parametros_cont { $$ = $1; }
 ;
 
 lista_parametros_cont:
-    tipo ID { printf("lista_parametros_cont: unico\n"); }
-    | tipo ID VIRGULA lista_parametros_cont { printf("lista_parametros_cont: multiplos\n"); }
+    tipo ID { $$ = criarParametro($1, $2, NULL); }
+    | tipo ID VIRGULA lista_parametros_cont { $$ = criarParametro($1, $2, $3); }
 ;
 
 bloco:
-    ABR_BLOCO lista_decl_var lista_comando FCH_BLOCO { printf("bloco\n"); }
+    ABR_BLOCO lista_decl_var lista_comando FCH_BLOCO { $$ = criarBloco($2, $3); }
 ;
 
 lista_decl_var:
-    { printf("lista_decl_var: vazio.\n"); }
-    | tipo ID decl_var FIM lista_decl_var { printf("lista_decl_var\n"); }
+    { $$ = NULL; }
+    | tipo ID decl_var FIM lista_decl_var { $$ = criarVariavelComTipo($1, $2, $3, $4); }
 ;
 
 tipo:
-    TIPO_INT { printf("tipo: int\n"); }
-    | TIPO_CHAR { printf("tipo: char\n"); }
+    TIPO_INT { $$ = Tipo.INT; }
+    | TIPO_CHAR { $$ = Tipo.STR; }
 ;
 
 lista_comando:
-    comando { printf("lista_comando: unico\n"); }
-    | comando lista_comando { printf("lista_comando: multiplos\n"); }
+    comando { $$ = $1; }
+    | comando lista_comando { $$ = linkListaComando($1, $2) }
 ;
 
 comando:
-    FIM { printf("comando: fim\n"); }
-    | expr FIM { printf("comando: expr\n"); }
-    | RETORNE expr FIM { printf("comando: retorne\n"); }
-    | LEIA ID FIM { printf("comando: leia\n"); }
-    | ESCREVA expr FIM { printf("comando: escreva expr\n"); }
-    | ESCREVA STRING FIM { printf("comando: escreva string\n"); }
-    | NOVA_LINHA FIM { printf("comando: nova linha\n"); }
-    | SE ABR_PARENT expr FCH_PARENT ENTAO comando { printf("comando: se\n"); }
-    | SE ABR_PARENT expr FCH_PARENT ENTAO comando SENAO comando { printf("comando: se-senao\n"); }
-    | ENQUANTO ABR_PARENT expr FCH_PARENT EXECUTE comando { printf("comando: enquanto\n"); }
-    | bloco { printf("comando: bloco\n"); }
+    FIM { $$ = NULL; }
+    | expr FIM { $$ = criarComandoUnitario($1, EComandoUnitario.EXPR); }
+    | RETORNE expr FIM { $$ = criarComandoUnitario($2, EComandoUnitario.RETORNE); }
+    | LEIA ID FIM { Expr* expr = criarExprChamada($2, NULL, EPrimExpr.CHAMADA_VAR); $$ = criarComandoUnitario(expr, EComandoUnitario.LEIA); }
+    | ESCREVA expr FIM { $$ = criarComandoUnitario($2, EComandoUnitario.ESCREVA); }
+    | ESCREVA STRING FIM { Expr* expr = criarExprChamada($2, NULL, EPrimExpr.CHAMADA_VAR); $$ = criarComandoUnitario(expr, EComandoUnitario.ESCREVA); }
+    | NOVA_LINHA FIM { $$ = NULL; }
+    | SE ABR_PARENT expr FCH_PARENT ENTAO comando { $$ = criarComandoControleFluxo($3, $6, NULL); }
+    | SE ABR_PARENT expr FCH_PARENT ENTAO comando SENAO comando { $$ = criarComandoControleFluxo($3, $6, $8); }
+    | ENQUANTO ABR_PARENT expr FCH_PARENT EXECUTE comando { $$ = criarComandoControleFluxo($3, $6, NULL); }
+    | bloco { $$ = criarComandoBloco($1); }
 ;
 
 expr:
-    or_expr { printf("expr: or_expr\n"); }
-    | ID ATRIBUIR expr { printf("expr: atribuicao\n"); }
+    or_expr { $$ = $1; }
+    | ID ATRIBUIR expr { $$ = criarExprAtr($1, $3); }
 ;
 
 or_expr:
-    and_expr { printf("or_expr: and_expr\n"); }
-    | or_expr OU and_expr { printf("or_expr: ou\n"); }
+    and_expr { $$ = $1; }
+    | or_expr OU and_expr { $$ = criarExprOperador($1, $3, EOperador.OU); }
 ;
 
 and_expr:
-    eq_expr { printf("and_expr: eq_expr\n"); }
-    | and_expr E eq_expr { printf("and_expr: e\n"); }
+    eq_expr { $$ = $1; }
+    | and_expr E eq_expr { $$ = criarExprOperador($1, $3, EOperador.E); }
 ;
 
 eq_expr:
-    desig_expr { printf("eq_expr: desig_expr\n"); }
-    | eq_expr IGUAL desig_expr { printf("eq_expr: igual\n"); }
-    | eq_expr NAO_IGUAL desig_expr { printf("eq_expr: nao igual\n"); }
+    desig_expr { $$ = $1; }
+    | eq_expr IGUAL desig_expr { $$ = criarExprOperador($1, $3, EOperador.IGUALDADE); }
+    | eq_expr NAO_IGUAL desig_expr { $$ = criarExprOperador($1, $3, EOperador.DIFERENCA); }
 ;
 
 desig_expr:
-    add_expr { printf("desig_expr: add_expr\n"); }
-    | desig_expr MENOR add_expr { printf("desig_expr: menor\n"); }
-    | desig_expr MAIOR add_expr { printf("desig_expr: maior\n"); }
-    | desig_expr MAIOR_IGUAL add_expr { printf("desig_expr: maior igual\n"); }
-    | desig_expr MENOR_IGUAL add_expr { printf("desig_expr: menor igual\n"); }
+    add_expr { $$ = $1; }
+    | desig_expr MENOR add_expr { $$ = criarExprOperador($1, $3, EOperador.MENOR); }
+    | desig_expr MAIOR add_expr { $$ = criarExprOperador($1, $3, EOperador.MAIOR); }
+    | desig_expr MAIOR_IGUAL add_expr { $$ = criarExprOperador($1, $3, EOperador.MAIOR_IGUAL); }
+    | desig_expr MENOR_IGUAL add_expr { $$ = criarExprOperador($1, $3, EOperador.MENOR_IGUAL); }
 ;
 
 add_expr:
-    mul_expr { printf("add_expr: mul_expr\n"); }
-    | add_expr MAIS mul_expr { printf("add_expr: mais\n"); }
-    | add_expr MENOS mul_expr { printf("add_expr: menos\n"); }
+    mul_expr { $$ = $1; }
+    | add_expr MAIS mul_expr { $$ = criarExprOperador($1, $3, EOperador.MAIS); }
+    | add_expr MENOS mul_expr { $$ = criarExprOperador($1, $3, EOperador.MENOS); }
 ;
 
 mul_expr:
-    un_expr { printf("mul_expr: un_expr\n"); }
-    | mul_expr MULT un_expr { printf("mul_expr: mult\n"); }
-    | mul_expr DIVIDE un_expr { printf("mul_expr: divide\n"); }
+    un_expr { $$ = $1; }
+    | mul_expr MULT un_expr { $$ = criarOperador($1, $3, EOperador.MULTIPLICACAO); }
+    | mul_expr DIVIDE un_expr { $$ = criarOperador($1, $3, EOperador.DIVISAO); }
 ;
 
 un_expr:
-    prim_expr { printf("un_expr: prim_expr\n"); }
-    | MENOS prim_expr { printf("un_expr: menos\n"); }
-    | NEGATIVA prim_expr { printf("un_expr: negativa\n"); }
+    prim_expr { $$ = $1; }
+    | MENOS prim_expr { $$ = criarUnExpr($2, EUnExpr.NEGATIVO); }
+    | NEGATIVA prim_expr { $$ = criarUnExpr($2, EUnExpr.NEGACAO); }
 ;
 
 prim_expr:
-    ID ABR_PARENT list_expr FCH_PARENT { printf("prim_expr: lista\n"); }
-    | ID ABR_PARENT FCH_PARENT { printf("prim_expr: vazio\n"); }
-    | ID { printf("prim_expr: id\n"); }
-    | STRING { printf("prim_expr: string\n"); }
-    | DIGITO { printf("prim_expr: digito\n"); }
-    | ABR_PARENT expr FCH_PARENT { printf("prim_expr: expr\n"); }
+    ID ABR_PARENT list_expr FCH_PARENT { $$ = criarExprChamada($1, $3, EPrimExpr.CHAMADA_FUNC); }
+    | ID ABR_PARENT FCH_PARENT { $$ = criarExprChamada($1, NULL, EPrimExpr.CHAMADA_FUNC); }
+    | ID { $$ = criarExprChamada($1, NULL, EPrimExpr.CHAMADA_VAR); }
+    | STRING { $$ = criarExprConst($1, EPrimExpr.STR); }
+    | DIGITO { $$ = criarExprConst($1, EPrimExpr.INT); }
+    | ABR_PARENT expr FCH_PARENT { $$ = criarExprParent($2); }
 ;
 
 list_expr:
-    expr { printf("list_expr: unico\n"); }
-    | list_expr VIRGULA expr { printf("list_expr: multiplo\n"); }
+    expr { $$ = $1; }
+    | list_expr VIRGULA expr { $$ = linkExpr($1, $3); }
 ;
 
 %%
 
 extern int yylineno;
 
-yyerror(const char *s) {
+yyerror(const char* s) {
     printf("ERROR: %s in line %d\n", s, yylineno);
 
     return 0;
