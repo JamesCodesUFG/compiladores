@@ -1,6 +1,22 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+typedef struct Raiz Toperador;
+typedef struct DeclFuncVar DeclFuncVar;
+typedef struct DeclVar DeclVar;
+typedef struct DeclFunc DeclFunc;
+typedef struct Bloco Bloco;
+typedef struct ListaParametros ListaParametros;
+typedef struct Chamada ChamadaFunc;
+typedef struct PrimExpr PrimExpr;
+typedef struct UnExpr UnExpr;
+typedef struct Operador Operador;
+typedef struct Atribuicao Atribuicao;
+typedef struct Expr Expr;
+typedef struct ComandoUnitario ComandoUnitario;
+typedef struct ComandoControleFluxo ComandoControleFluxo;
+typedef struct ListaComando ListaComando;
+
 typedef enum { INT, STR } Tipo;
 typedef enum { ATRIBUICAO, OPERADOR, PRIMARIO } EExpr;
 typedef enum { VAR, FUNC } EDeclaracao;
@@ -39,7 +55,7 @@ typedef struct Operador {
 typedef struct Atribuicao {
     char* id;
     Expr* expr;
-} _Expr;
+} Atribuicao;
 
 typedef struct Expr {
     EExpr tipo;
@@ -69,7 +85,7 @@ typedef struct ListaComando {
         ComandoUnitario* comandoUnitario;
         ComandoControleFluxo* comandoControleFluxo;
         Bloco* bloco;
-    }
+    };
     struct Comando* next;
 } ListaComando;
 
@@ -84,24 +100,24 @@ typedef struct ListaParametros {
     struct Parametro* next;
 } ListaParametros;
 
-typedef struct _DeclFunc {
+typedef struct DeclFunc {
     char* id;
     Tipo tipo;
     ListaParametros* listaParametros;
     Bloco* bloco;
-} _DeclFunc;
+} DeclFunc;
 
 typedef struct DeclVar {
     char* id;
     Tipo tipo;
-} _DeclVar;
+} DeclVar;
 
 typedef struct DeclFuncVar {
     EDeclaracao tipo;
     union {
-        _DeclVar* declVar;
-        _DeclFunc* declFunc;
-    }
+        DeclVar* declVar;
+        DeclFunc* declFunc;
+    };
     struct DeclFuncVar* next;
 } DeclFuncVar;
 

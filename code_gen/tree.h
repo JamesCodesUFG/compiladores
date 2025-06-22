@@ -3,16 +3,17 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "tipos.h"
 
-Raiz* criarRaiz(Declaracao* declaracao, Bloco* bloco);
+Raiz* criarRaiz(DeclFuncVar* declaracao, Bloco* bloco);
 
 Parametro* criarParametro(Tipo tipo, char* nome, Parametro* next);
-Declaracao* criarFuncaoSemTipo(Parametro* parametro, Bloco* bloco);
-Declaracao* criarFuncaoComTipo(Tipo tipo, char* nome, Declaracao* funcao, Declaracao* next);
+DeclFuncVar* criarFuncaoSemTipo(Parametro* parametro, Bloco* bloco);
+DeclFuncVar* criarFuncaoComTipo(Tipo tipo, char* nome, DeclFuncVar* funcao, DeclFuncVar* next);
 
-Declaracao* criarVariavelSemTipo(char* nome, Declaracao* next);
-Declaracao* criarVariavelComTipo(Tipo tipo, char* nome, Declaracao* filhos, Declaracao* next);
+DeclFuncVar* criarVariavelSemTipo(char* nome, DeclFuncVar* next);
+DeclFuncVar* criarVariavelComTipo(Tipo tipo, char* nome, DeclFuncVar* filhos, DeclFuncVar* next);
 
 Bloco* criarBloco(DeclFuncVar* declFuncVar, ListaComando* listaComando);
 

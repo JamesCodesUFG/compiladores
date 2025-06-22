@@ -1,3 +1,4 @@
+#include "tipos.h"
 #include "tree.h"
 
 Raiz* criarRaiz(DeclFuncVar* declFuncVar, Bloco* bloco) {
