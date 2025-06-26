@@ -68,6 +68,8 @@ char            { return TOKEN_CHAR; }
 
 leia            { return TOKEN_LEIA; }
 escreva         { return TOKEN_ESCREVA; }
+retorne         { return TOKEN_RETORNE; }
+novalinha       { return TOKEN_NOVALINHA; }
 
 se              { return TOKEN_SE; }
 entao           { return TOKEN_ENTAO; }
@@ -90,8 +92,6 @@ e               { return TOKEN_E; }
 {MULT}          { return TOKEN_MULT; }
 {DIVIDE}        { return TOKEN_DIVIDE; }
 {NEGATIVA}      { return TOKEN_NEGATIVA; }
-
-retorne         { return TOKEN_RETORNE; }
 
 {VIR}           { return TOKEN_VIRGULA; }
 {FIM}           { return TOKEN_FIM; }

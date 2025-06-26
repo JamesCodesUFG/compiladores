@@ -128,7 +128,7 @@ Lexema* add_param(Stack* stack, char* id, STipo tipo, int index, Lexema* owner) 
  * 
  * @return Endereço do lexema ou NULL quando não encontrado.
  */
-Lexema* find(Stack* stack, char* lexema) {    
+Lexema* gfind(Stack* stack, char* lexema) {    
     while (stack != NULL) {
         for (int i = 0; i < stack->n_lexema; i++) {
             switch(stack->lexemas[i]->tipo) {
@@ -145,6 +145,24 @@ Lexema* find(Stack* stack, char* lexema) {
         }
 
         stack = stack->parent;
+    }
+
+    return NULL;
+}
+
+Lexema* efind(Stack* stack, char* lexema) {    
+    for (int i = 0; i < stack->n_lexema; i++) {
+        switch(stack->lexemas[i]->tipo) {
+            case L_VARIABLE:
+                if (!strcmp(stack->lexemas[i]->var.id, lexema)) return stack->lexemas[i];
+                break;
+            case L_FUNCTION:
+                if (!strcmp(stack->lexemas[i]->func.id, lexema)) return stack->lexemas[i];
+                break;
+            case L_PARAMETER:
+                if (!strcmp(stack->lexemas[i]->param.id, lexema)) return stack->lexemas[i];
+                break;
+        }
     }
 
     return NULL;

@@ -8,6 +8,11 @@
 
 Stack* current_stack;
 
+static void safe_exit() {
+    delete_stack(current_stack);
+    exit(1);
+}
+
 void semantico_raiz(Raiz* raiz) {
     printf("Raiz encontrada.\n");
 
@@ -36,47 +41,73 @@ void semantico_decl_func_var(DeclFuncVar* declFuncVar) {
             break;
         default:
             printf("ERRO: da Tipo DeclFuncVar incorreto (%d).\n", declFuncVar->tipo);
-            delete_stack(current_stack);
-            exit(1);
+            safe_exit();
     }
 }
 
 void semantico_decl_var(DeclVar* declVar) {
+    STipo tipo;
+
     switch (declVar->tipo) {
         case TIPO_INT:
-            printf("Variavel '%s' do tipo int encontrado.\n", declVar->id);
-            // Verificar se já existe mesmo nome no escopo.
-            // Adicionar variável na stack atual.
+            if (efind(declVar->id) != NULL) {
+                printf("ERROR: Error semantico detectado.\n");
+                safe_exit();
+            } else {
+                printf("Variavel '%s' do tipo int encontrado.\n", declVar->id);
+                tipo = S_TIPO_INT;
+            }
+
             break;
         case TIPO_STR:
-            printf("Variavel '%s' do tipo int encontrado.\n", declVar->id);
-            // Verificar se já existe mesmo nome no escopo.
-            // Adicionar variável na stack atual.
+            if (efind(declVar->id) != NULL) {
+                printf("ERROR: Error semantico detectado.\n");
+                safe_exit();
+            } else {
+                printf("Variavel '%s' do tipo str encontrado.\n", declVar->id);
+                tipo = S_TIPO_STR;
+            }
             break;
         default:
             printf("ERRO: Tipo da DeclVar incorreto (%s -> %d).\n", declVar->id, declVar->tipo);
-            delete_stack(current_stack);
-            exit(1);
+            safe_exit();
     }
+
+    add_var(current_stack, declVar->id, tipo, 0);
 }
 
 void semantico_decl_func(DeclFunc* declFunc) {
+    STipo tipo;
+
     switch (declFunc->tipo) {
         case TIPO_INT:
-            printf("Função '%s' do tipo int encontrado.\n", declFunc->id);
-            // Verificar se já existe mesmo nome no escopo.
-            // Adicionar função na stack atual.
+            if (efind(declVar->id) != NULL) {
+                printf("ERROR: Error semantico detectado.\n");
+                safe_exit();
+            } else {
+                printf("Função '%s' do tipo int encontrado.\n", declFunc->id);
+                tipo = S_TIPO_INT;
+            }
+
             break;
         case TIPO_STR:
-            printf("Função '%s' do tipo int encontrado.\n", declFunc->id);
-            // Verificar se já existe mesmo nome no escopo.
-            // Adicionar variável na stack atual.
+            if (efind(declVar->id) != NULL) {
+                printf("ERROR: Error semantico detectado.\n");
+                safe_exit();
+            } else {
+                printf("Função '%s' do tipo str encontrado.\n", declFunc->id);
+                tipo = S_TIPO_INT;
+            }
+            
             break;
         default:
             printf("ERRO: Tipo da DeclFunc incorreto.\n");
-            delete_stack(current_stack);
-            exit(1);
+            safe_exit();
     }
+
+    Lexema* lexema = add_func(current_stack, declVar->id, 0, tipo);
+
+    int param_counter = 0;
 
     ListaParametros* c_listaParametros = declFunc->listaParametros;
 
@@ -84,10 +115,14 @@ void semantico_decl_func(DeclFunc* declFunc) {
         semantico_lista_parametros(c_listaParametros);
 
         c_listaParametros = c_listaParametros->next;
+
+        param_counter++;
     }
+
+    lexema->func
 }
 
-void semantico_lista_parametros(ListaParametros* listaParametros) {
+void semantico_lista_parametros(ListaParametros* listaParametros, Lexema* lexema) {
     switch (listaParametros->tipo) {
         case TIPO_INT:
             printf("Parametro '%s' do tipo int encontrado.\n", listaParametros->id);
@@ -99,8 +134,7 @@ void semantico_lista_parametros(ListaParametros* listaParametros) {
             break;
         default:
             printf("ERRO: Tipo da ListaParametro incorreto.\n");
-            delete_stack(current_stack);
-            exit(1);
+            safe_exit();
     }
 }
 
@@ -139,11 +173,8 @@ void semantico_lista_comando(ListaComando* listaComando) {
             break;
         default:
             printf("ERRO: Tipo da ListaComando incorreto.\n");
-            delete_stack(current_stack);
-            exit(1);
+            safe_exit();
     }
-
-    if (listaComando->next != NULL) semantico_lista_comando(listaComando->next);
 }
 
 void semantico_comando_controle_fluxo(ComandoControleFluxo* comando) {
@@ -159,8 +190,7 @@ void semantico_comando_controle_fluxo(ComandoControleFluxo* comando) {
             break;
         default:
             printf("ERRO: Tipo da ListaComando incorreto.\n");
-            delete_stack(current_stack);
-            exit(1);
+            safe_exit();
     }
 
     semantico_expr(comando->expr);
@@ -182,13 +212,15 @@ void semantico_comando_unitario(ComandoUnitario* comando) {
         case ESCREVA:
             printf("Comando ESCREVA encontrado.\n");
             break;
+        case NOVALINHA:
+            printf("Comando NOVALINHA econtrado.\n");
+            break;
         default:
             printf("ERRO: Tipo da ComandoUnitario incorreto.\n");
-            delete_stack(current_stack);
-            exit(1);
+            safe_exit();
     }
 
-    semantico_expr(comando->expr);
+    if (comando->expr != NULL) semantico_expr(comando->expr);
 }
 
 void semantico_expr(Expr* expr) {
@@ -204,8 +236,7 @@ void semantico_expr(Expr* expr) {
             break;
         default:
             printf("ERRO: Tipo da Expr incorreto.\n");
-            delete_stack(current_stack);
-            exit(1);
+            safe_exit();
     }
 }
 
@@ -260,8 +291,7 @@ void semantico_operador(Operador* operador) {
             break;
         default:
             printf("ERRO: Tipo da Operador incorreto.\n");
-            delete_stack(current_stack);
-            exit(1);
+            safe_exit();
     }
 
     semantico_expr(operador->esquerda);
@@ -281,8 +311,7 @@ void semantico_un_expr(UnExpr* unExpr) {
             break;
         default:
             printf("ERRO: Tipo da UnExpr incorreto.\n");
-            delete_stack(current_stack);
-            exit(1);
+            safe_exit();
     }
 
     semantico_prim_expr(unExpr->primExpr);
@@ -310,8 +339,7 @@ void semantico_prim_expr(PrimExpr* primExpr) {
             break;
         default:
             printf("ERRO: Tipo da PrimExpr incorreto.\n");
-            delete_stack(current_stack);
-            exit(1);
+            safe_exit();
     }
 }
 

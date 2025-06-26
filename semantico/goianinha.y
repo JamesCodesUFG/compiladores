@@ -95,6 +95,7 @@ Raiz* arvore_final = NULL;
 %token TOKEN_LEIA
 %token TOKEN_ESCREVA
 %token TOKEN_RETORNE
+%token TOKEN_NOVALINHA
 
 %token TOKEN_ABR_PARENT
 %token TOKEN_FCH_PARENT
@@ -182,7 +183,7 @@ comando:
             Expr* expr = criarExprUnaria(primExpr, NONE);
             $$ = criarComandoUnitario(expr, ESCREVA);
         }
-    | TOKEN_NOVA_LINHA TOKEN_FIM { $$ = NULL; }
+    | TOKEN_NOVALINHA TOKEN_FIM { $$ = criarComandoUnitario(NULL, NOVALINHA); }
     | TOKEN_SE TOKEN_ABR_PARENT expr TOKEN_FCH_PARENT TOKEN_ENTAO comando { $$ = criarComandoControleFluxo($3, $6, NULL, SE_ENTAO); }
     | TOKEN_SE TOKEN_ABR_PARENT expr TOKEN_FCH_PARENT TOKEN_ENTAO comando TOKEN_SENAO comando { $$ = criarComandoControleFluxo($3, $6, $8, SE_SENAO); }
     | TOKEN_ENQUANTO TOKEN_ABR_PARENT expr TOKEN_FCH_PARENT TOKEN_EXECUTE comando { $$ = criarComandoControleFluxo($3, $6, NULL, ENQUANTO); }

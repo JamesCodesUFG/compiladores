@@ -55,7 +55,8 @@
     Lexema* add_func(Stack* current, char* id, int n_params, STipo tipo);
     Lexema* add_param(Stack* current, char* id, STipo tipo, int index, Lexema* owner);
 
-    Lexema* find(Stack* current, char* lexema);
+    Lexema* gfind(Stack* current, char* lexema);
+    Lexema* efind(Stack* current, char* lexema);
 
     void delete_stack(Stack* stack);
 

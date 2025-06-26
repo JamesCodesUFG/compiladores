@@ -145,36 +145,37 @@ enum yysymbol_kind_t
   YYSYMBOL_TOKEN_LEIA = 28,                /* TOKEN_LEIA  */
   YYSYMBOL_TOKEN_ESCREVA = 29,             /* TOKEN_ESCREVA  */
   YYSYMBOL_TOKEN_RETORNE = 30,             /* TOKEN_RETORNE  */
-  YYSYMBOL_TOKEN_ABR_PARENT = 31,          /* TOKEN_ABR_PARENT  */
-  YYSYMBOL_TOKEN_FCH_PARENT = 32,          /* TOKEN_FCH_PARENT  */
-  YYSYMBOL_TOKEN_ABR_BLOCO = 33,           /* TOKEN_ABR_BLOCO  */
-  YYSYMBOL_TOKEN_FCH_BLOCO = 34,           /* TOKEN_FCH_BLOCO  */
-  YYSYMBOL_TOKEN_VIRGULA = 35,             /* TOKEN_VIRGULA  */
-  YYSYMBOL_TOKEN_FIM = 36,                 /* TOKEN_FIM  */
-  YYSYMBOL_TOKEN_NOVA_LINHA = 37,          /* TOKEN_NOVA_LINHA  */
-  YYSYMBOL_YYACCEPT = 38,                  /* $accept  */
-  YYSYMBOL_programa = 39,                  /* programa  */
-  YYSYMBOL_decl_func_var = 40,             /* decl_func_var  */
-  YYSYMBOL_decl_prog = 41,                 /* decl_prog  */
-  YYSYMBOL_decl_var = 42,                  /* decl_var  */
-  YYSYMBOL_decl_func = 43,                 /* decl_func  */
-  YYSYMBOL_lista_parametros = 44,          /* lista_parametros  */
-  YYSYMBOL_lista_parametros_cont = 45,     /* lista_parametros_cont  */
-  YYSYMBOL_bloco = 46,                     /* bloco  */
-  YYSYMBOL_lista_decl_var = 47,            /* lista_decl_var  */
-  YYSYMBOL_tipo = 48,                      /* tipo  */
-  YYSYMBOL_lista_comando = 49,             /* lista_comando  */
-  YYSYMBOL_comando = 50,                   /* comando  */
-  YYSYMBOL_expr = 51,                      /* expr  */
-  YYSYMBOL_or_expr = 52,                   /* or_expr  */
-  YYSYMBOL_and_expr = 53,                  /* and_expr  */
-  YYSYMBOL_eq_expr = 54,                   /* eq_expr  */
-  YYSYMBOL_desig_expr = 55,                /* desig_expr  */
-  YYSYMBOL_add_expr = 56,                  /* add_expr  */
-  YYSYMBOL_mul_expr = 57,                  /* mul_expr  */
-  YYSYMBOL_un_expr = 58,                   /* un_expr  */
-  YYSYMBOL_prim_expr = 59,                 /* prim_expr  */
-  YYSYMBOL_list_expr = 60                  /* list_expr  */
+  YYSYMBOL_TOKEN_NOVALINHA = 31,           /* TOKEN_NOVALINHA  */
+  YYSYMBOL_TOKEN_ABR_PARENT = 32,          /* TOKEN_ABR_PARENT  */
+  YYSYMBOL_TOKEN_FCH_PARENT = 33,          /* TOKEN_FCH_PARENT  */
+  YYSYMBOL_TOKEN_ABR_BLOCO = 34,           /* TOKEN_ABR_BLOCO  */
+  YYSYMBOL_TOKEN_FCH_BLOCO = 35,           /* TOKEN_FCH_BLOCO  */
+  YYSYMBOL_TOKEN_VIRGULA = 36,             /* TOKEN_VIRGULA  */
+  YYSYMBOL_TOKEN_FIM = 37,                 /* TOKEN_FIM  */
+  YYSYMBOL_TOKEN_NOVA_LINHA = 38,          /* TOKEN_NOVA_LINHA  */
+  YYSYMBOL_YYACCEPT = 39,                  /* $accept  */
+  YYSYMBOL_programa = 40,                  /* programa  */
+  YYSYMBOL_decl_func_var = 41,             /* decl_func_var  */
+  YYSYMBOL_decl_prog = 42,                 /* decl_prog  */
+  YYSYMBOL_decl_var = 43,                  /* decl_var  */
+  YYSYMBOL_decl_func = 44,                 /* decl_func  */
+  YYSYMBOL_lista_parametros = 45,          /* lista_parametros  */
+  YYSYMBOL_lista_parametros_cont = 46,     /* lista_parametros_cont  */
+  YYSYMBOL_bloco = 47,                     /* bloco  */
+  YYSYMBOL_lista_decl_var = 48,            /* lista_decl_var  */
+  YYSYMBOL_tipo = 49,                      /* tipo  */
+  YYSYMBOL_lista_comando = 50,             /* lista_comando  */
+  YYSYMBOL_comando = 51,                   /* comando  */
+  YYSYMBOL_expr = 52,                      /* expr  */
+  YYSYMBOL_or_expr = 53,                   /* or_expr  */
+  YYSYMBOL_and_expr = 54,                  /* and_expr  */
+  YYSYMBOL_eq_expr = 55,                   /* eq_expr  */
+  YYSYMBOL_desig_expr = 56,                /* desig_expr  */
+  YYSYMBOL_add_expr = 57,                  /* add_expr  */
+  YYSYMBOL_mul_expr = 58,                  /* mul_expr  */
+  YYSYMBOL_un_expr = 59,                   /* un_expr  */
+  YYSYMBOL_prim_expr = 60,                 /* prim_expr  */
+  YYSYMBOL_list_expr = 61                  /* list_expr  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -505,7 +506,7 @@ union yyalloc
 #define YYLAST   130
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  38
+#define YYNTOKENS  39
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  23
 /* YYNRULES -- Number of rules.  */
@@ -514,7 +515,7 @@ union yyalloc
 #define YYNSTATES  122
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   292
+#define YYMAXUTOK   293
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -557,20 +558,20 @@ static const yytype_int8 yytranslate[] =
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37
+      35,    36,    37,    38
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,   113,   113,   121,   122,   123,   127,   131,   132,   136,
-     140,   141,   145,   146,   150,   154,   155,   159,   160,   164,
-     165,   169,   170,   171,   172,   178,   179,   185,   186,   187,
-     188,   189,   193,   194,   198,   199,   203,   204,   208,   209,
-     210,   214,   215,   216,   217,   218,   222,   223,   224,   228,
-     229,   230,   234,   235,   236,   240,   241,   242,   243,   244,
-     245,   249,   250
+       0,   114,   114,   122,   123,   124,   128,   132,   133,   137,
+     141,   142,   146,   147,   151,   155,   156,   160,   161,   165,
+     166,   170,   171,   172,   173,   179,   180,   186,   187,   188,
+     189,   190,   194,   195,   199,   200,   204,   205,   209,   210,
+     211,   215,   216,   217,   218,   219,   223,   224,   225,   229,
+     230,   231,   235,   236,   237,   241,   242,   243,   244,   245,
+     246,   250,   251
 };
 #endif
 
@@ -593,13 +594,14 @@ static const char *const yytname[] =
   "TOKEN_MAIS", "TOKEN_MENOS", "TOKEN_MULT", "TOKEN_DIVIDE",
   "TOKEN_NEGATIVA", "TOKEN_SE", "TOKEN_ENTAO", "TOKEN_SENAO",
   "TOKEN_EXECUTE", "TOKEN_ENQUANTO", "TOKEN_PROGRAMA", "TOKEN_LEIA",
-  "TOKEN_ESCREVA", "TOKEN_RETORNE", "TOKEN_ABR_PARENT", "TOKEN_FCH_PARENT",
-  "TOKEN_ABR_BLOCO", "TOKEN_FCH_BLOCO", "TOKEN_VIRGULA", "TOKEN_FIM",
-  "TOKEN_NOVA_LINHA", "$accept", "programa", "decl_func_var", "decl_prog",
-  "decl_var", "decl_func", "lista_parametros", "lista_parametros_cont",
-  "bloco", "lista_decl_var", "tipo", "lista_comando", "comando", "expr",
-  "or_expr", "and_expr", "eq_expr", "desig_expr", "add_expr", "mul_expr",
-  "un_expr", "prim_expr", "list_expr", YY_NULLPTR
+  "TOKEN_ESCREVA", "TOKEN_RETORNE", "TOKEN_NOVALINHA", "TOKEN_ABR_PARENT",
+  "TOKEN_FCH_PARENT", "TOKEN_ABR_BLOCO", "TOKEN_FCH_BLOCO",
+  "TOKEN_VIRGULA", "TOKEN_FIM", "TOKEN_NOVA_LINHA", "$accept", "programa",
+  "decl_func_var", "decl_prog", "decl_var", "decl_func",
+  "lista_parametros", "lista_parametros_cont", "bloco", "lista_decl_var",
+  "tipo", "lista_comando", "comando", "expr", "or_expr", "and_expr",
+  "eq_expr", "desig_expr", "add_expr", "mul_expr", "un_expr", "prim_expr",
+  "list_expr", YY_NULLPTR
 };
 
 static const char *
@@ -609,7 +611,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-58)
+#define YYPACT_NINF (-59)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -623,19 +625,19 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      61,   -58,   -58,    33,   -20,    51,   -58,   -17,   -58,    15,
-      61,   -58,    61,    55,    25,    61,     6,    88,    32,   -58,
-      97,    66,    61,   -58,    -2,   -58,   -58,     9,     9,    72,
-      73,   102,    48,    52,    52,   -58,    70,   -58,    74,     6,
-      71,    99,   101,    27,     7,    54,    58,   -58,   -58,    66,
-     -17,    76,   -58,   -58,    52,    44,    82,   -58,   -58,    52,
-      52,    78,    79,    80,    83,    85,   -58,   -58,   -58,   -58,
+      60,   -59,   -59,    29,    15,    50,   -59,    39,   -59,    13,
+      60,   -59,    60,    84,    26,    60,     6,    93,    64,   -59,
+      97,    65,    60,   -59,     7,   -59,   -59,     9,     9,    71,
+      72,   102,    47,    51,    69,    51,   -59,   -59,    73,     6,
+      70,    99,   101,     8,     5,    53,   -12,   -59,   -59,    65,
+      39,    75,   -59,   -59,    51,    43,    80,   -59,   -59,    51,
+      51,    77,    78,    79,    82,   -59,    85,   -59,   -59,   -59,
       81,    81,    81,    81,    81,    81,    81,    81,    81,    81,
-      81,    81,    84,   -58,    61,   -58,   -58,   -58,   -14,    86,
-      89,   -58,   -58,   -58,   -58,   -58,   101,    27,     7,     7,
-      54,    54,    54,    54,    58,    58,   -58,   -58,    61,   -58,
-     -58,    52,   100,   103,   -58,   -58,     6,     6,    98,   -58,
-       6,   -58
+      81,    81,    83,   -59,    60,   -59,   -59,   -59,    24,    88,
+      89,   -59,   -59,   -59,   -59,   -59,   101,     8,     5,     5,
+      53,    53,    53,    53,   -12,   -12,   -59,   -59,    60,   -59,
+     -59,    51,    94,    98,   -59,   -59,     6,     6,   100,   -59,
+       6,   -59
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -646,10 +648,10 @@ static const yytype_int8 yydefact[] =
        3,    17,    18,     0,     0,     0,     1,     0,     2,     7,
       15,     6,    10,     0,     0,     3,     0,     0,     0,    11,
        0,     7,     3,     5,    57,    59,    58,     0,     0,     0,
-       0,     0,     0,     0,     0,    21,     0,    31,     0,    19,
+       0,     0,     0,     0,     0,     0,    21,    31,     0,    19,
        0,    32,    34,    36,    38,    41,    46,    49,    52,     7,
        0,    12,     8,     4,     0,     0,    57,    53,    54,     0,
-       0,     0,    58,     0,     0,     0,    27,    14,    20,    22,
+       0,     0,    58,     0,     0,    27,     0,    14,    20,    22,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     9,     0,    33,    56,    61,     0,     0,
        0,    24,    26,    25,    23,    60,    35,    37,    39,    40,
@@ -661,9 +663,9 @@ static const yytype_int8 yydefact[] =
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -58,   -58,    -7,   -58,    -4,   -58,   -58,    40,    -6,    17,
-     -10,    87,   -57,   -29,   -58,    57,    59,     8,    13,    14,
-      16,    67,   -58
+     -59,   -59,     1,   -59,   -16,   -59,   -59,    41,    -6,    18,
+     -10,    90,   -58,   -29,   -59,    57,    59,    20,    14,    -1,
+       0,    67,   -59
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -679,37 +681,37 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      17,    11,    20,    63,    64,    65,    54,     7,    23,    24,
-      25,    26,    56,    25,    26,    53,    10,    52,   110,    74,
-      75,   111,    76,    77,    27,    85,    87,    28,    29,    55,
-      89,    90,    30,     6,    31,    32,    33,    34,    72,    10,
-      34,    73,    35,    36,    83,    82,    12,    24,    25,    26,
-      13,    24,    25,    62,     9,    24,    25,    26,    21,   118,
-     119,    22,    27,   121,    50,    28,    27,     1,     2,    28,
-      27,    78,    79,    28,    20,    34,    86,    80,    81,    34,
-      98,    99,   115,    34,    56,    25,    26,   100,   101,   102,
-     103,    49,   104,   105,    57,    58,   106,   107,    17,    27,
-      51,    13,    28,    59,    60,    61,    66,    69,    67,    70,
-      71,    84,    34,    55,    91,    92,    93,    95,   112,    94,
-     108,   113,   120,   116,   109,   114,    68,    96,   117,     0,
+      17,    11,    20,    63,    64,    52,    66,    80,    81,    24,
+      25,    26,    56,    25,    26,    54,    23,    74,    75,    72,
+      76,    77,    73,    53,    27,    85,    87,    28,    29,     6,
+      89,    90,    30,    82,    31,    32,    33,    34,    35,    55,
+      10,    35,     7,    36,    83,    12,    24,    25,    26,    13,
+      24,    25,    62,     9,    24,    25,    26,   110,   118,   119,
+     111,    27,   121,    22,    28,    27,     1,     2,    28,    27,
+      78,    79,    28,    10,    20,    35,    86,   104,   105,    35,
+     106,   107,   115,    35,    56,    25,    26,    21,   100,   101,
+     102,   103,    98,    99,    57,    58,    49,    50,    17,    27,
+      51,    13,    28,    59,    60,    61,    65,    69,    67,    70,
+      71,    84,    55,    35,    91,    92,    93,   116,    95,    94,
+     108,   112,   113,   117,   120,   109,   114,    96,     0,    68,
       97
 };
 
 static const yytype_int8 yycheck[] =
 {
-      10,     7,    12,    32,    33,    34,     8,    27,    15,     3,
-       4,     5,     3,     4,     5,    22,    33,    21,    32,    12,
-      13,    35,    15,    16,    18,    54,    55,    21,    22,    31,
-      59,    60,    26,     0,    28,    29,    30,    31,    11,    33,
-      31,    14,    36,    37,    50,    49,    31,     3,     4,     5,
-      35,     3,     4,     5,     3,     3,     4,     5,     3,   116,
-     117,    36,    18,   120,    32,    21,    18,     6,     7,    21,
-      18,    17,    18,    21,    84,    31,    32,    19,    20,    31,
-      72,    73,   111,    31,     3,     4,     5,    74,    75,    76,
-      77,     3,    78,    79,    27,    28,    80,    81,   108,    18,
-       3,    35,    21,    31,    31,     3,    36,    36,    34,    10,
-       9,    35,    31,    31,    36,    36,    36,    32,    32,    36,
-      36,    32,    24,    23,    84,   108,    39,    70,    25,    -1,
+      10,     7,    12,    32,    33,    21,    35,    19,    20,     3,
+       4,     5,     3,     4,     5,     8,    15,    12,    13,    11,
+      15,    16,    14,    22,    18,    54,    55,    21,    22,     0,
+      59,    60,    26,    49,    28,    29,    30,    31,    32,    32,
+      34,    32,    27,    37,    50,    32,     3,     4,     5,    36,
+       3,     4,     5,     3,     3,     4,     5,    33,   116,   117,
+      36,    18,   120,    37,    21,    18,     6,     7,    21,    18,
+      17,    18,    21,    34,    84,    32,    33,    78,    79,    32,
+      80,    81,   111,    32,     3,     4,     5,     3,    74,    75,
+      76,    77,    72,    73,    27,    28,     3,    33,   108,    18,
+       3,    36,    21,    32,    32,     3,    37,    37,    35,    10,
+       9,    36,    32,    32,    37,    37,    37,    23,    33,    37,
+      37,    33,    33,    25,    24,    84,   108,    70,    -1,    39,
       71
 };
 
@@ -717,31 +719,31 @@ static const yytype_int8 yycheck[] =
    state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     6,     7,    39,    40,    48,     0,    27,    41,     3,
-      33,    46,    31,    35,    42,    43,    47,    48,    44,    45,
-      48,     3,    36,    40,     3,     4,     5,    18,    21,    22,
-      26,    28,    29,    30,    31,    36,    37,    46,    49,    50,
-      51,    52,    53,    54,    55,    56,    57,    58,    59,     3,
-      32,     3,    42,    40,     8,    31,     3,    59,    59,    31,
-      31,     3,     5,    51,    51,    51,    36,    34,    49,    36,
+       0,     6,     7,    40,    41,    49,     0,    27,    42,     3,
+      34,    47,    32,    36,    43,    44,    48,    49,    45,    46,
+      49,     3,    37,    41,     3,     4,     5,    18,    21,    22,
+      26,    28,    29,    30,    31,    32,    37,    47,    50,    51,
+      52,    53,    54,    55,    56,    57,    58,    59,    60,     3,
+      33,     3,    43,    41,     8,    32,     3,    60,    60,    32,
+      32,     3,     5,    52,    52,    37,    52,    35,    50,    37,
       10,     9,    11,    14,    12,    13,    15,    16,    17,    18,
-      19,    20,    42,    46,    35,    51,    32,    51,    60,    51,
-      51,    36,    36,    36,    36,    32,    53,    54,    55,    55,
-      56,    56,    56,    56,    57,    57,    58,    58,    36,    45,
-      32,    35,    32,    32,    47,    51,    23,    25,    50,    50,
-      24,    50
+      19,    20,    43,    47,    36,    52,    33,    52,    61,    52,
+      52,    37,    37,    37,    37,    33,    54,    55,    56,    56,
+      57,    57,    57,    57,    58,    58,    59,    59,    37,    46,
+      33,    36,    33,    33,    48,    52,    23,    25,    51,    51,
+      24,    51
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    38,    39,    40,    40,    40,    41,    42,    42,    43,
-      44,    44,    45,    45,    46,    47,    47,    48,    48,    49,
-      49,    50,    50,    50,    50,    50,    50,    50,    50,    50,
-      50,    50,    51,    51,    52,    52,    53,    53,    54,    54,
-      54,    55,    55,    55,    55,    55,    56,    56,    56,    57,
-      57,    57,    58,    58,    58,    59,    59,    59,    59,    59,
-      59,    60,    60
+       0,    39,    40,    41,    41,    41,    42,    43,    43,    44,
+      45,    45,    46,    46,    47,    48,    48,    49,    49,    50,
+      50,    51,    51,    51,    51,    51,    51,    51,    51,    51,
+      51,    51,    52,    52,    53,    53,    54,    54,    55,    55,
+      55,    56,    56,    56,    56,    56,    57,    57,    57,    58,
+      58,    58,    59,    59,    59,    60,    60,    60,    60,    60,
+      60,    61,    61
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -1217,384 +1219,384 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* programa: decl_func_var decl_prog  */
-#line 114 "goianinha.y"
+#line 115 "goianinha.y"
         {
             (yyval.raiz) = criarRaiz((yyvsp[-1].declFuncVar), (yyvsp[0].bloco));
             arvore_final = (yyval.raiz);
         }
-#line 1226 "goianinha.tab.c"
+#line 1228 "goianinha.tab.c"
     break;
 
   case 3: /* decl_func_var: %empty  */
-#line 121 "goianinha.y"
+#line 122 "goianinha.y"
     { (yyval.declFuncVar) = NULL; }
-#line 1232 "goianinha.tab.c"
+#line 1234 "goianinha.tab.c"
     break;
 
   case 4: /* decl_func_var: tipo VALUE_ID decl_var TOKEN_FIM decl_func_var  */
-#line 122 "goianinha.y"
+#line 123 "goianinha.y"
                                                      { (yyval.declFuncVar) = criarVariavelComTipo((yyvsp[-4].tipo), (yyvsp[-3].str), (yyvsp[-2].declFuncVar), (yyvsp[0].declFuncVar)); }
-#line 1238 "goianinha.tab.c"
+#line 1240 "goianinha.tab.c"
     break;
 
   case 5: /* decl_func_var: tipo VALUE_ID decl_func decl_func_var  */
-#line 123 "goianinha.y"
+#line 124 "goianinha.y"
                                             { (yyval.declFuncVar) = criarFuncaoComTipo((yyvsp[-3].tipo), (yyvsp[-2].str), (yyvsp[-1].declFuncVar), (yyvsp[0].declFuncVar)); }
-#line 1244 "goianinha.tab.c"
+#line 1246 "goianinha.tab.c"
     break;
 
   case 6: /* decl_prog: TOKEN_PROGRAMA bloco  */
-#line 127 "goianinha.y"
+#line 128 "goianinha.y"
                          { (yyval.bloco) = (yyvsp[0].bloco); }
-#line 1250 "goianinha.tab.c"
+#line 1252 "goianinha.tab.c"
     break;
 
   case 7: /* decl_var: %empty  */
-#line 131 "goianinha.y"
+#line 132 "goianinha.y"
     { (yyval.declFuncVar) = NULL; }
-#line 1256 "goianinha.tab.c"
+#line 1258 "goianinha.tab.c"
     break;
 
   case 8: /* decl_var: TOKEN_VIRGULA VALUE_ID decl_var  */
-#line 132 "goianinha.y"
+#line 133 "goianinha.y"
                                       { (yyval.declFuncVar) = criarVariavelSemTipo((yyvsp[-1].str), (yyvsp[0].declFuncVar)); }
-#line 1262 "goianinha.tab.c"
+#line 1264 "goianinha.tab.c"
     break;
 
   case 9: /* decl_func: TOKEN_ABR_PARENT lista_parametros TOKEN_FCH_PARENT bloco  */
-#line 136 "goianinha.y"
+#line 137 "goianinha.y"
                                                              { (yyval.declFuncVar) = criarFuncaoSemTipo((yyvsp[-2].listaParametros), (yyvsp[0].bloco)); }
-#line 1268 "goianinha.tab.c"
+#line 1270 "goianinha.tab.c"
     break;
 
   case 10: /* lista_parametros: %empty  */
-#line 140 "goianinha.y"
+#line 141 "goianinha.y"
     { (yyval.listaParametros) = NULL; }
-#line 1274 "goianinha.tab.c"
+#line 1276 "goianinha.tab.c"
     break;
 
   case 11: /* lista_parametros: lista_parametros_cont  */
-#line 141 "goianinha.y"
+#line 142 "goianinha.y"
                             { (yyval.listaParametros) = (yyvsp[0].listaParametros); }
-#line 1280 "goianinha.tab.c"
+#line 1282 "goianinha.tab.c"
     break;
 
   case 12: /* lista_parametros_cont: tipo VALUE_ID  */
-#line 145 "goianinha.y"
+#line 146 "goianinha.y"
                   { (yyval.listaParametros) = criarParametro((yyvsp[-1].tipo), (yyvsp[0].str), NULL); }
-#line 1286 "goianinha.tab.c"
+#line 1288 "goianinha.tab.c"
     break;
 
   case 13: /* lista_parametros_cont: tipo VALUE_ID TOKEN_VIRGULA lista_parametros_cont  */
-#line 146 "goianinha.y"
+#line 147 "goianinha.y"
                                                         { (yyval.listaParametros) = criarParametro((yyvsp[-3].tipo), (yyvsp[-2].str), (yyvsp[0].listaParametros)); }
-#line 1292 "goianinha.tab.c"
+#line 1294 "goianinha.tab.c"
     break;
 
   case 14: /* bloco: TOKEN_ABR_BLOCO lista_decl_var lista_comando TOKEN_FCH_BLOCO  */
-#line 150 "goianinha.y"
+#line 151 "goianinha.y"
                                                                  { (yyval.bloco) = criarBloco((yyvsp[-2].declFuncVar), (yyvsp[-1].listaComando)); }
-#line 1298 "goianinha.tab.c"
+#line 1300 "goianinha.tab.c"
     break;
 
   case 15: /* lista_decl_var: %empty  */
-#line 154 "goianinha.y"
+#line 155 "goianinha.y"
     { (yyval.declFuncVar) = NULL; }
-#line 1304 "goianinha.tab.c"
+#line 1306 "goianinha.tab.c"
     break;
 
   case 16: /* lista_decl_var: tipo VALUE_ID decl_var TOKEN_FIM lista_decl_var  */
-#line 155 "goianinha.y"
+#line 156 "goianinha.y"
                                                       { (yyval.declFuncVar) = criarVariavelComTipo((yyvsp[-4].tipo), (yyvsp[-3].str), (yyvsp[-2].declFuncVar), (yyvsp[0].declFuncVar)); }
-#line 1310 "goianinha.tab.c"
+#line 1312 "goianinha.tab.c"
     break;
 
   case 17: /* tipo: TOKEN_INT  */
-#line 159 "goianinha.y"
+#line 160 "goianinha.y"
               { printf("Certo"); (yyval.tipo) = TIPO_INT; }
-#line 1316 "goianinha.tab.c"
+#line 1318 "goianinha.tab.c"
     break;
 
   case 18: /* tipo: TOKEN_CHAR  */
-#line 160 "goianinha.y"
+#line 161 "goianinha.y"
                  { (yyval.tipo) = TIPO_STR; }
-#line 1322 "goianinha.tab.c"
+#line 1324 "goianinha.tab.c"
     break;
 
   case 19: /* lista_comando: comando  */
-#line 164 "goianinha.y"
+#line 165 "goianinha.y"
             { (yyval.listaComando) = (yyvsp[0].listaComando); }
-#line 1328 "goianinha.tab.c"
+#line 1330 "goianinha.tab.c"
     break;
 
   case 20: /* lista_comando: comando lista_comando  */
-#line 165 "goianinha.y"
+#line 166 "goianinha.y"
                             { (yyval.listaComando) = linkListaComando((yyvsp[-1].listaComando), (yyvsp[0].listaComando)); }
-#line 1334 "goianinha.tab.c"
+#line 1336 "goianinha.tab.c"
     break;
 
   case 21: /* comando: TOKEN_FIM  */
-#line 169 "goianinha.y"
+#line 170 "goianinha.y"
               { (yyval.listaComando) = NULL; }
-#line 1340 "goianinha.tab.c"
+#line 1342 "goianinha.tab.c"
     break;
 
   case 22: /* comando: expr TOKEN_FIM  */
-#line 170 "goianinha.y"
+#line 171 "goianinha.y"
                      { (yyval.listaComando) = criarComandoUnitario((yyvsp[-1].expr), EXPR); }
-#line 1346 "goianinha.tab.c"
+#line 1348 "goianinha.tab.c"
     break;
 
   case 23: /* comando: TOKEN_RETORNE expr TOKEN_FIM  */
-#line 171 "goianinha.y"
+#line 172 "goianinha.y"
                                    { (yyval.listaComando) = criarComandoUnitario((yyvsp[-1].expr), RETORNE); }
-#line 1352 "goianinha.tab.c"
+#line 1354 "goianinha.tab.c"
     break;
 
   case 24: /* comando: TOKEN_LEIA VALUE_ID TOKEN_FIM  */
-#line 173 "goianinha.y"
+#line 174 "goianinha.y"
         { 
             PrimExpr* primExpr = criarPrimExprChamada((yyvsp[-1].str), NULL, CHAMADA_VAR);
             Expr* expr = criarExprUnaria(primExpr, NONE);
             (yyval.listaComando) = criarComandoUnitario(expr, LEIA);
         }
-#line 1362 "goianinha.tab.c"
+#line 1364 "goianinha.tab.c"
     break;
 
   case 25: /* comando: TOKEN_ESCREVA expr TOKEN_FIM  */
-#line 178 "goianinha.y"
+#line 179 "goianinha.y"
                                    { (yyval.listaComando) = criarComandoUnitario((yyvsp[-1].expr), ESCREVA); }
-#line 1368 "goianinha.tab.c"
+#line 1370 "goianinha.tab.c"
     break;
 
   case 26: /* comando: TOKEN_ESCREVA VALUE_STRING TOKEN_FIM  */
-#line 180 "goianinha.y"
+#line 181 "goianinha.y"
         {
             PrimExpr* primExpr = criarPrimExprConst((yyvsp[-1].str), TIPO_STR);
             Expr* expr = criarExprUnaria(primExpr, NONE);
             (yyval.listaComando) = criarComandoUnitario(expr, ESCREVA);
         }
-#line 1378 "goianinha.tab.c"
+#line 1380 "goianinha.tab.c"
     break;
 
-  case 27: /* comando: TOKEN_NOVA_LINHA TOKEN_FIM  */
-#line 185 "goianinha.y"
-                                 { (yyval.listaComando) = NULL; }
-#line 1384 "goianinha.tab.c"
+  case 27: /* comando: TOKEN_NOVALINHA TOKEN_FIM  */
+#line 186 "goianinha.y"
+                                { (yyval.listaComando) = criarComandoUnitario(NULL, NOVALINHA); }
+#line 1386 "goianinha.tab.c"
     break;
 
   case 28: /* comando: TOKEN_SE TOKEN_ABR_PARENT expr TOKEN_FCH_PARENT TOKEN_ENTAO comando  */
-#line 186 "goianinha.y"
+#line 187 "goianinha.y"
                                                                           { (yyval.listaComando) = criarComandoControleFluxo((yyvsp[-3].expr), (yyvsp[0].listaComando), NULL, SE_ENTAO); }
-#line 1390 "goianinha.tab.c"
+#line 1392 "goianinha.tab.c"
     break;
 
   case 29: /* comando: TOKEN_SE TOKEN_ABR_PARENT expr TOKEN_FCH_PARENT TOKEN_ENTAO comando TOKEN_SENAO comando  */
-#line 187 "goianinha.y"
+#line 188 "goianinha.y"
                                                                                               { (yyval.listaComando) = criarComandoControleFluxo((yyvsp[-5].expr), (yyvsp[-2].listaComando), (yyvsp[0].listaComando), SE_SENAO); }
-#line 1396 "goianinha.tab.c"
+#line 1398 "goianinha.tab.c"
     break;
 
   case 30: /* comando: TOKEN_ENQUANTO TOKEN_ABR_PARENT expr TOKEN_FCH_PARENT TOKEN_EXECUTE comando  */
-#line 188 "goianinha.y"
+#line 189 "goianinha.y"
                                                                                   { (yyval.listaComando) = criarComandoControleFluxo((yyvsp[-3].expr), (yyvsp[0].listaComando), NULL, ENQUANTO); }
-#line 1402 "goianinha.tab.c"
+#line 1404 "goianinha.tab.c"
     break;
 
   case 31: /* comando: bloco  */
-#line 189 "goianinha.y"
+#line 190 "goianinha.y"
             { (yyval.listaComando) = criarComandoBloco((yyvsp[0].bloco)); }
-#line 1408 "goianinha.tab.c"
+#line 1410 "goianinha.tab.c"
     break;
 
   case 32: /* expr: or_expr  */
-#line 193 "goianinha.y"
+#line 194 "goianinha.y"
             { (yyval.expr) = (yyvsp[0].expr); }
-#line 1414 "goianinha.tab.c"
+#line 1416 "goianinha.tab.c"
     break;
 
   case 33: /* expr: VALUE_ID TOKEN_ATTR expr  */
-#line 194 "goianinha.y"
+#line 195 "goianinha.y"
                                { (yyval.expr) = criarExprAtribuicao((yyvsp[-2].str), (yyvsp[0].expr)); }
-#line 1420 "goianinha.tab.c"
+#line 1422 "goianinha.tab.c"
     break;
 
   case 34: /* or_expr: and_expr  */
-#line 198 "goianinha.y"
+#line 199 "goianinha.y"
              { (yyval.expr) = (yyvsp[0].expr); }
-#line 1426 "goianinha.tab.c"
+#line 1428 "goianinha.tab.c"
     break;
 
   case 35: /* or_expr: or_expr TOKEN_OU and_expr  */
-#line 199 "goianinha.y"
+#line 200 "goianinha.y"
                                 { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), OU); }
-#line 1432 "goianinha.tab.c"
+#line 1434 "goianinha.tab.c"
     break;
 
   case 36: /* and_expr: eq_expr  */
-#line 203 "goianinha.y"
+#line 204 "goianinha.y"
             { (yyval.expr) = (yyvsp[0].expr); }
-#line 1438 "goianinha.tab.c"
+#line 1440 "goianinha.tab.c"
     break;
 
   case 37: /* and_expr: and_expr TOKEN_E eq_expr  */
-#line 204 "goianinha.y"
+#line 205 "goianinha.y"
                                { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), E); }
-#line 1444 "goianinha.tab.c"
+#line 1446 "goianinha.tab.c"
     break;
 
   case 38: /* eq_expr: desig_expr  */
-#line 208 "goianinha.y"
+#line 209 "goianinha.y"
                { (yyval.expr) = (yyvsp[0].expr); }
-#line 1450 "goianinha.tab.c"
+#line 1452 "goianinha.tab.c"
     break;
 
   case 39: /* eq_expr: eq_expr TOKEN_IGUAL desig_expr  */
-#line 209 "goianinha.y"
+#line 210 "goianinha.y"
                                      { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), IGUALDADE); }
-#line 1456 "goianinha.tab.c"
+#line 1458 "goianinha.tab.c"
     break;
 
   case 40: /* eq_expr: eq_expr TOKEN_NAO_IGUAL desig_expr  */
-#line 210 "goianinha.y"
+#line 211 "goianinha.y"
                                          { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), DIFERENCA); }
-#line 1462 "goianinha.tab.c"
+#line 1464 "goianinha.tab.c"
     break;
 
   case 41: /* desig_expr: add_expr  */
-#line 214 "goianinha.y"
+#line 215 "goianinha.y"
              { (yyval.expr) = (yyvsp[0].expr); }
-#line 1468 "goianinha.tab.c"
+#line 1470 "goianinha.tab.c"
     break;
 
   case 42: /* desig_expr: desig_expr TOKEN_MENOR add_expr  */
-#line 215 "goianinha.y"
+#line 216 "goianinha.y"
                                       { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), MENOR_QUE); }
-#line 1474 "goianinha.tab.c"
+#line 1476 "goianinha.tab.c"
     break;
 
   case 43: /* desig_expr: desig_expr TOKEN_MAIOR add_expr  */
-#line 216 "goianinha.y"
+#line 217 "goianinha.y"
                                       { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), MAIOR_QUE); }
-#line 1480 "goianinha.tab.c"
+#line 1482 "goianinha.tab.c"
     break;
 
   case 44: /* desig_expr: desig_expr TOKEN_MAIOR_IGUAL add_expr  */
-#line 217 "goianinha.y"
+#line 218 "goianinha.y"
                                             { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), MAIOR_IGUAL); }
-#line 1486 "goianinha.tab.c"
+#line 1488 "goianinha.tab.c"
     break;
 
   case 45: /* desig_expr: desig_expr TOKEN_MENOR_IGUAL add_expr  */
-#line 218 "goianinha.y"
+#line 219 "goianinha.y"
                                             { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), MENOR_IGUAL); }
-#line 1492 "goianinha.tab.c"
+#line 1494 "goianinha.tab.c"
     break;
 
   case 46: /* add_expr: mul_expr  */
-#line 222 "goianinha.y"
+#line 223 "goianinha.y"
              { (yyval.expr) = (yyvsp[0].expr); }
-#line 1498 "goianinha.tab.c"
+#line 1500 "goianinha.tab.c"
     break;
 
   case 47: /* add_expr: add_expr TOKEN_MAIS mul_expr  */
-#line 223 "goianinha.y"
+#line 224 "goianinha.y"
                                    { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), MAIS); }
-#line 1504 "goianinha.tab.c"
+#line 1506 "goianinha.tab.c"
     break;
 
   case 48: /* add_expr: add_expr TOKEN_MENOS mul_expr  */
-#line 224 "goianinha.y"
+#line 225 "goianinha.y"
                                     { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), MENOS); }
-#line 1510 "goianinha.tab.c"
+#line 1512 "goianinha.tab.c"
     break;
 
   case 49: /* mul_expr: un_expr  */
-#line 228 "goianinha.y"
+#line 229 "goianinha.y"
             { (yyval.expr) = (yyvsp[0].expr); }
-#line 1516 "goianinha.tab.c"
+#line 1518 "goianinha.tab.c"
     break;
 
   case 50: /* mul_expr: mul_expr TOKEN_MULT un_expr  */
-#line 229 "goianinha.y"
+#line 230 "goianinha.y"
                                   { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), MULTIPLICACAO); }
-#line 1522 "goianinha.tab.c"
+#line 1524 "goianinha.tab.c"
     break;
 
   case 51: /* mul_expr: mul_expr TOKEN_DIVIDE un_expr  */
-#line 230 "goianinha.y"
+#line 231 "goianinha.y"
                                     { (yyval.expr) = criarExprOperador((yyvsp[-2].expr), (yyvsp[0].expr), DIVISAO); }
-#line 1528 "goianinha.tab.c"
+#line 1530 "goianinha.tab.c"
     break;
 
   case 52: /* un_expr: prim_expr  */
-#line 234 "goianinha.y"
+#line 235 "goianinha.y"
               { (yyval.expr) = criarExprUnaria((yyvsp[0].primExpr), NONE); }
-#line 1534 "goianinha.tab.c"
+#line 1536 "goianinha.tab.c"
     break;
 
   case 53: /* un_expr: TOKEN_MENOS prim_expr  */
-#line 235 "goianinha.y"
+#line 236 "goianinha.y"
                             { (yyval.expr) = criarExprUnaria((yyvsp[0].primExpr), NEGATIVO); }
-#line 1540 "goianinha.tab.c"
+#line 1542 "goianinha.tab.c"
     break;
 
   case 54: /* un_expr: TOKEN_NEGATIVA prim_expr  */
-#line 236 "goianinha.y"
+#line 237 "goianinha.y"
                                { (yyval.expr) = criarExprUnaria((yyvsp[0].primExpr), NEGACAO); }
-#line 1546 "goianinha.tab.c"
+#line 1548 "goianinha.tab.c"
     break;
 
   case 55: /* prim_expr: VALUE_ID TOKEN_ABR_PARENT list_expr TOKEN_FCH_PARENT  */
-#line 240 "goianinha.y"
+#line 241 "goianinha.y"
                                                          { (yyval.primExpr) = criarPrimExprChamada((yyvsp[-3].str), (yyvsp[-1].expr), CHAMADA_FUNC); }
-#line 1552 "goianinha.tab.c"
+#line 1554 "goianinha.tab.c"
     break;
 
   case 56: /* prim_expr: VALUE_ID TOKEN_ABR_PARENT TOKEN_FCH_PARENT  */
-#line 241 "goianinha.y"
+#line 242 "goianinha.y"
                                                  { (yyval.primExpr) = criarPrimExprChamada((yyvsp[-2].str), NULL, CHAMADA_FUNC); }
-#line 1558 "goianinha.tab.c"
+#line 1560 "goianinha.tab.c"
     break;
 
   case 57: /* prim_expr: VALUE_ID  */
-#line 242 "goianinha.y"
+#line 243 "goianinha.y"
                { (yyval.primExpr) = criarPrimExprChamada((yyvsp[0].str), NULL, CHAMADA_VAR); }
-#line 1564 "goianinha.tab.c"
+#line 1566 "goianinha.tab.c"
     break;
 
   case 58: /* prim_expr: VALUE_STRING  */
-#line 243 "goianinha.y"
+#line 244 "goianinha.y"
                    { (yyval.primExpr) = criarPrimExprConst((yyvsp[0].str), CONST_STR); }
-#line 1570 "goianinha.tab.c"
+#line 1572 "goianinha.tab.c"
     break;
 
   case 59: /* prim_expr: VALUE_DIGITO  */
-#line 244 "goianinha.y"
+#line 245 "goianinha.y"
                    { (yyval.primExpr) = criarPrimExprConst((yyvsp[0].str), CONST_INT); }
-#line 1576 "goianinha.tab.c"
+#line 1578 "goianinha.tab.c"
     break;
 
   case 60: /* prim_expr: TOKEN_ABR_PARENT expr TOKEN_FCH_PARENT  */
-#line 245 "goianinha.y"
+#line 246 "goianinha.y"
                                              { (yyval.primExpr) = criarPrimExprParent((yyvsp[-1].expr)); }
-#line 1582 "goianinha.tab.c"
+#line 1584 "goianinha.tab.c"
     break;
 
   case 61: /* list_expr: expr  */
-#line 249 "goianinha.y"
+#line 250 "goianinha.y"
          { (yyval.expr) = (yyvsp[0].expr); }
-#line 1588 "goianinha.tab.c"
+#line 1590 "goianinha.tab.c"
     break;
 
   case 62: /* list_expr: list_expr TOKEN_VIRGULA expr  */
-#line 250 "goianinha.y"
+#line 251 "goianinha.y"
                                    { (yyval.expr) = linkExpr((yyvsp[-2].expr), (yyvsp[0].expr)); }
-#line 1594 "goianinha.tab.c"
+#line 1596 "goianinha.tab.c"
     break;
 
 
-#line 1598 "goianinha.tab.c"
+#line 1600 "goianinha.tab.c"
 
       default: break;
     }
@@ -1787,7 +1789,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 253 "goianinha.y"
+#line 254 "goianinha.y"
 
 
 extern int yylineno;

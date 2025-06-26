@@ -82,13 +82,14 @@ extern int yydebug;
     TOKEN_LEIA = 283,              /* TOKEN_LEIA  */
     TOKEN_ESCREVA = 284,           /* TOKEN_ESCREVA  */
     TOKEN_RETORNE = 285,           /* TOKEN_RETORNE  */
-    TOKEN_ABR_PARENT = 286,        /* TOKEN_ABR_PARENT  */
-    TOKEN_FCH_PARENT = 287,        /* TOKEN_FCH_PARENT  */
-    TOKEN_ABR_BLOCO = 288,         /* TOKEN_ABR_BLOCO  */
-    TOKEN_FCH_BLOCO = 289,         /* TOKEN_FCH_BLOCO  */
-    TOKEN_VIRGULA = 290,           /* TOKEN_VIRGULA  */
-    TOKEN_FIM = 291,               /* TOKEN_FIM  */
-    TOKEN_NOVA_LINHA = 292         /* TOKEN_NOVA_LINHA  */
+    TOKEN_NOVALINHA = 286,         /* TOKEN_NOVALINHA  */
+    TOKEN_ABR_PARENT = 287,        /* TOKEN_ABR_PARENT  */
+    TOKEN_FCH_PARENT = 288,        /* TOKEN_FCH_PARENT  */
+    TOKEN_ABR_BLOCO = 289,         /* TOKEN_ABR_BLOCO  */
+    TOKEN_FCH_BLOCO = 290,         /* TOKEN_FCH_BLOCO  */
+    TOKEN_VIRGULA = 291,           /* TOKEN_VIRGULA  */
+    TOKEN_FIM = 292,               /* TOKEN_FIM  */
+    TOKEN_NOVA_LINHA = 293         /* TOKEN_NOVA_LINHA  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -119,7 +120,7 @@ union YYSTYPE
     ListaComando* listaComando;
     ETipo tipo;
 
-#line 123 "goianinha.tab.h"
+#line 124 "goianinha.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

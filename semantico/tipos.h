@@ -22,7 +22,7 @@ typedef enum { ATRIBUICAO, OPERADOR, UNARIA } EExpr;
 typedef enum { VAR, FUNC } EDeclFuncVar;
 typedef enum { UNITARIO, CONTROLE_FLUXO, BLOCO } EListaComando;
 typedef enum { SE_ENTAO, SE_SENAO, ENQUANTO} EComandoControleFluxo;
-typedef enum { EXPR, RETORNE, LEIA, ESCREVA } EComandoUnitario;
+typedef enum { EXPR, RETORNE, LEIA, ESCREVA, NOVALINHA } EComandoUnitario;
 typedef enum { NONE, NEGATIVO, NEGACAO} EUnExpr;
 typedef enum { E, OU, NAO, IGUALDADE, DIFERENCA, MAIOR_QUE, MENOR_QUE, MAIOR_IGUAL, MENOR_IGUAL, MAIS, MENOS, MULTIPLICACAO, DIVISAO } EOperador;
 typedef enum { CHAMADA_VAR, CHAMADA_FUNC, CONST_STR, CONST_INT, EXPRESSAO } EPrimExpr;
