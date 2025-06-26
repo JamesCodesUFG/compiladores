@@ -12,6 +12,8 @@ extern char* yytext;
 
 extern FILE* yyin;
 
+extern Raiz* arvore_final;
+
 int main(int argc, char** argv) {
     if (argc != 2) {
         printf("Uso correto: programaPrincipal arquivo_de_teste\n");
@@ -21,7 +23,7 @@ int main(int argc, char** argv) {
 
     yyin = fopen(argv[1], "r");
 
-    Raiz* raiz = yyparse();
+    yyparse();
 
     return 0;
 }

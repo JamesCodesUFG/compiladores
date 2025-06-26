@@ -3,7 +3,7 @@ CFLAGS =   -g  -Wall -ansi
 LFLAGS = -lm
 
 goianinha: sintatico.o lexico.o main.o tree.o 
-	$(CC) $(CFLAGS) $(LFLAGS) lexico.o sintatico.o main.o -o goianinha
+	$(CC) $(CFLAGS) $(LFLAGS) lexico.o sintatico.o tree.o main.o -o goianinha
 
 tree.o: tree.c
 	$(CC) $(CFLAGS) $(FLAGS) -c tree.c -o tree.o

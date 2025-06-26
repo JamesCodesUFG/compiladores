@@ -15,7 +15,7 @@ Raiz* criarRaiz(DeclFuncVar* declFuncVar, Bloco* bloco) {
     return raiz;
 }
 
-DeclFuncVar* criarVariavelSemTipo(char* nome, DeclFuncVar* next) {
+DeclFuncVar* criarVariavelSemTipo(char* id, DeclFuncVar* next) {
     DeclFuncVar* decl = (DeclFuncVar*)malloc(sizeof(DeclFuncVar));
 
     if (!decl) {
@@ -23,7 +23,7 @@ DeclFuncVar* criarVariavelSemTipo(char* nome, DeclFuncVar* next) {
         exit(EXIT_FAILURE);
     }
 
-    decl->tipo = TipoDeclaracao.VAR;
+    decl->tipo = VAR;
     decl->declVar = (DeclVar*)malloc(sizeof(DeclVar));
 
     if (!decl->declVar) {
@@ -31,14 +31,14 @@ DeclFuncVar* criarVariavelSemTipo(char* nome, DeclFuncVar* next) {
         exit(EXIT_FAILURE);
     }
 
-    decl->declVar->nome = nome;
-    decl->declVar->tipo = NULL;
+    decl->declVar->id = id;
+    decl->declVar->tipo = TIPO_NULL;
     decl->next = next;
 
     return decl;
 }
 
-DeclFuncVar* criarVariavelComTipo(Tipo tipo, char* nome, DeclFuncVar* filhos, DeclFuncVar* next) {
+DeclFuncVar* criarVariavelComTipo(ETipo tipo, char* id, DeclFuncVar* filhos, DeclFuncVar* next) {
     DeclFuncVar* decl = (DeclFuncVar*)malloc(sizeof(DeclFuncVar));
 
     if (!decl) {
@@ -46,7 +46,7 @@ DeclFuncVar* criarVariavelComTipo(Tipo tipo, char* nome, DeclFuncVar* filhos, De
         exit(EXIT_FAILURE);
     }
 
-    decl->tipo = TipoDeclaracao.VAR;
+    decl->tipo = VAR;
     decl->declVar = (DeclVar*)malloc(sizeof(DeclVar));
 
     if (!decl->declVar) {
@@ -54,7 +54,7 @@ DeclFuncVar* criarVariavelComTipo(Tipo tipo, char* nome, DeclFuncVar* filhos, De
         exit(EXIT_FAILURE);
     }
 
-    decl->declVar->nome = nome;
+    decl->declVar->id = id;
     decl->declVar->tipo = tipo;
     decl->next = filhos;
 
@@ -71,7 +71,7 @@ DeclFuncVar* criarVariavelComTipo(Tipo tipo, char* nome, DeclFuncVar* filhos, De
     return decl;
 }
 
-DeclFuncVar* criarFuncaoSemTipo(Parametro* parametro, Bloco* bloco) {
+DeclFuncVar* criarFuncaoSemTipo(ListaParametros* listaParametros, Bloco* bloco) {
     DeclFuncVar* decl = (DeclFuncVar*)malloc(sizeof(DeclFuncVar));
 
     if (!decl) {
@@ -79,7 +79,7 @@ DeclFuncVar* criarFuncaoSemTipo(Parametro* parametro, Bloco* bloco) {
         exit(EXIT_FAILURE);
     }
 
-    decl->tipo = TipoDeclaracao.FUNC;
+    decl->tipo = FUNC;
     decl->declFunc = (DeclFunc*)malloc(sizeof(DeclFunc));
 
     if (!decl->declFunc) {
@@ -87,36 +87,36 @@ DeclFuncVar* criarFuncaoSemTipo(Parametro* parametro, Bloco* bloco) {
         exit(EXIT_FAILURE);
     }
 
-    decl->declFunc->nome = NULL; // Nome será definido posteriormente
-    decl->declFunc->tipo = NULL; // Tipo será definido posteriormente
-    decl->declFunc->parametros = parametro;
+    decl->declFunc->id = NULL;
+    decl->declFunc->tipo = TIPO_NULL;
+    decl->declFunc->listaParametros = listaParametros;
     decl->declFunc->bloco = bloco;
     decl->next = NULL;
 
     return decl;
 }
 
-DeclFuncVar* criarFuncaoComTipo(Tipo tipo, char* nome, DeclFuncVar* funcao, DeclFuncVar* next) {
-    funcao->declFunc->nome = nome;
+DeclFuncVar* criarFuncaoComTipo(ETipo tipo, char* id, DeclFuncVar* funcao, DeclFuncVar* next) {
+    funcao->declFunc->id = id;
     funcao->declFunc->tipo = tipo;
     funcao->next = next;
 
     return funcao;
 }
 
-Parametro* criarParametro(Tipo tipo, char* nome, Parametro* next) {
-    Parametro* parametro = (Parametro*)malloc(sizeof(Parametro));
+ListaParametros* criarParametro(ETipo tipo, char* id, ListaParametros* next) {
+    ListaParametros* listaParametros = (ListaParametros*)malloc(sizeof(ListaParametros));
 
-    if (!parametro) {
+    if (!listaParametros) {
         fprintf(stderr, "Erro ao alocar memória para Parâmetro\n");
         exit(EXIT_FAILURE);
     }
 
-    parametro->nome = nome;
-    parametro->tipo = tipo;
-    parametro->next = next;
+    listaParametros->id = id;
+    listaParametros->tipo = tipo;
+    listaParametros->next = next;
 
-    return parametro;
+    return listaParametros;
 }
 
 Bloco* criarBloco(DeclFuncVar* declFuncVar, ListaComando* listaComando) {
@@ -149,7 +149,7 @@ ListaComando* criarComandoBloco(Bloco* bloco) {
         exit(EXIT_FAILURE);
     }
 
-    comando->tipo = EListaComando.BLOCO;
+    comando->tipo = BLOCO;
     comando->bloco = bloco;
     comando->next = NULL;
 
@@ -164,7 +164,7 @@ ListaComando* criarComandoUnitario(Expr* expr, EComandoUnitario tipo) {
         exit(EXIT_FAILURE);
     }
 
-    comando->tipo = EListaComando.UNNITARIO;
+    comando->tipo = UNITARIO;
     comando->comandoUnitario = (ComandoUnitario*)malloc(sizeof(ComandoUnitario));
 
     if (!comando->comandoUnitario) {
@@ -172,7 +172,7 @@ ListaComando* criarComandoUnitario(Expr* expr, EComandoUnitario tipo) {
         exit(EXIT_FAILURE);
     }
 
-    comando->comandoUnitario->expr = tipo;
+    comando->comandoUnitario->expr = expr;
     comando->next = NULL;
 
     return comando;
@@ -186,7 +186,7 @@ ListaComando* criarComandoControleFluxo(Expr* expr, ListaComando* primeiroComand
         exit(EXIT_FAILURE);
     }
 
-    comando->tipo = EListaComando.CONTROLE_FLUXO;
+    comando->tipo = CONTROLE_FLUXO;
     comando->comandoControleFluxo = (ComandoControleFluxo*)malloc(sizeof(ComandoControleFluxo));
 
     if (!comando->comandoControleFluxo) {
@@ -203,7 +203,7 @@ ListaComando* criarComandoControleFluxo(Expr* expr, ListaComando* primeiroComand
     return comando;
 }
 
-Expr* criarExprAtr(char* id, Atribuicao* expr) {
+Expr* criarExprAtribuicao(char* id, Expr* expr) {
     Expr* expressao = (Expr*)malloc(sizeof(Expr));
 
     if (!expressao) {
@@ -211,7 +211,7 @@ Expr* criarExprAtr(char* id, Atribuicao* expr) {
         exit(EXIT_FAILURE);
     }
 
-    expressao->tipo = EExpr.ATRIBUICAO;
+    expressao->tipo = ATRIBUICAO;
     expressao->atribuicao = (Atribuicao*)malloc(sizeof(Atribuicao));
 
     if (!expressao->atribuicao) {
@@ -226,7 +226,7 @@ Expr* criarExprAtr(char* id, Atribuicao* expr) {
     return expressao;
 }
 
-Expr* criarExprOperador(Expr* esquerda, Expr* direita, TipoOperador operador) {
+Expr* criarExprOperador(Expr* esquerda, Expr* direita, EOperador operador) {
     Expr* expressao = (Expr*)malloc(sizeof(Expr));
 
     if (!expressao) {
@@ -234,7 +234,7 @@ Expr* criarExprOperador(Expr* esquerda, Expr* direita, TipoOperador operador) {
         exit(EXIT_FAILURE);
     }
 
-    expressao->tipo = EExpr.OPERADOR;
+    expressao->tipo = OPERADOR;
     expressao->operador = (Operador*)malloc(sizeof(Operador));
 
     if (!expressao->operador) {
@@ -250,7 +250,7 @@ Expr* criarExprOperador(Expr* esquerda, Expr* direita, TipoOperador operador) {
     return expressao;
 }
 
-Expr* criarExprUnaria(Expr* expr, EOperador tipo) {
+Expr* criarExprUnaria(PrimExpr* primExpr, EOperador tipo) {
     Expr* expressao = (Expr*)malloc(sizeof(Expr));
 
     if (!expressao) {
@@ -258,7 +258,7 @@ Expr* criarExprUnaria(Expr* expr, EOperador tipo) {
         exit(EXIT_FAILURE);
     }
 
-    expressao->tipo = EExpr.UNARIA;
+    expressao->tipo = UNARIA;
     expressao->unaria = (UnExpr*)malloc(sizeof(UnExpr));
 
     if (!expressao->unaria) {
@@ -266,184 +266,60 @@ Expr* criarExprUnaria(Expr* expr, EOperador tipo) {
         exit(EXIT_FAILURE);
     }
 
-    expressao->unaria->expr = expr;
+    expressao->unaria->primExpr = primExpr;
     expressao->unaria->tipo = tipo;
     expressao->next = NULL;
 
     return expressao;
 }
 
-Expr* criarExprLogica(Expr* esquerda, Expr* direita, TipoOperador operador) {
-    Expr* expressao = (Expr*)malloc(sizeof(Expr));
+PrimExpr* criarPrimExprChamada(char* id, Expr* listaExpr, EPrimExpr tipo) {
+    PrimExpr* primExpr = (PrimExpr*)malloc(sizeof(PrimExpr));
 
-    if (!expressao) {
-        fprintf(stderr, "Erro ao alocar memória para Expressão Lógica\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->tipo = EExpr.LOGICA;
-    expressao->logica = (Logica*)malloc(sizeof(Logica));
-
-    if (!expressao->logica) {
-        fprintf(stderr, "Erro ao alocar memória para Lógica\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->logica->esquerda = esquerda;
-    expressao->logica->direita = direita;
-    expressao->logica->operador = operador;
-
-    return expressao;
-}
-
-Expr* criarExprAritmetica(Expr* esquerda, Expr* direita, TipoOperador operador) {
-    Expr* expressao = (Expr*)malloc(sizeof(Expr));
-
-    if (!expressao) {
-        fprintf(stderr, "Erro ao alocar memória para Expressão Aritmética\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->tipo = EExpr.ARITMETICA;
-    expressao->aritmetica = (Aritmetica*)malloc(sizeof(Aritmetica));
-
-    if (!expressao->aritmetica) {
-        fprintf(stderr, "Erro ao alocar memória para Aritmética\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->aritmetica->esquerda = esquerda;
-    expressao->aritmetica->direita = direita;
-    expressao->aritmetica->operador = operador;
-    expressao->next = NULL;
-
-    return expressao;
-}
-
-Expr* criarExprRelacional(Expr* esquerda, Expr* direita, TipoOperador operador) {
-    Expr* expressao = (Expr*)malloc(sizeof(Expr));
-
-    if (!expressao) {
-        fprintf(stderr, "Erro ao alocar memória para Expressão Relacional\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->tipo = EExpr.RELACIONAL;
-    expressao->relacional = (Relacional*)malloc(sizeof(Relacional));
-
-    if (!expressao->relacional) {
-        fprintf(stderr, "Erro ao alocar memória para Relacional\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->relacional->esquerda = esquerda;
-    expressao->relacional->direita = direita;
-    expressao->relacional->operador = operador;
-    expressao->next = NULL;
-
-    return expressao;
-}
-
-Expr* criarExprAtribuicao(Expr* esquerda, Expr* direita) {
-    Expr* expressao = (Expr*)malloc(sizeof(Expr));
-
-    if (!expressao) {
-        fprintf(stderr, "Erro ao alocar memória para Expressão de Atribuição\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->tipo = EExpr.ATRIBUICAO;
-    expressao->atribuicao = (Atribuicao*)malloc(sizeof(Atribuicao));
-
-    if (!expressao->atribuicao) {
-        fprintf(stderr, "Erro ao alocar memória para Atribuição\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->atribuicao->esquerda = esquerda;
-    expressao->atribuicao->direita = direita;
-    expressao->next = NULL;
-
-    return expressao;
-}
-
-Expr* criarExprChamada(char* id, ListaExpr* listaExpr, TipoPrimExpr tipo) {
-    Expr* expressao = (Expr*)malloc(sizeof(Expr));
-
-    if (!expressao) {
+    if (!primExpr) {
         fprintf(stderr, "Erro ao alocar memória para Expressão de Chamada\n");
         exit(EXIT_FAILURE);
     }
 
-    expressao->tipo = EExpr.CHAMADA;
-    expressao->unaria = (UnExpr*)malloc(sizeof(UnExpr));
+    primExpr->tipo = tipo;
+    primExpr->chamada.id = id;
+    primExpr->chamada.listaExpr = listaExpr;
 
-    if (!expressao->unaria) {
-        fprintf(stderr, "Erro ao alocar memória para Chamada\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->unaria->primExpr = (PrimExpr*)malloc(sizeof(PrimExpr));
-
-    if (!expressao->unaria->primExpr) {
-        fprintf(stderr, "Erro ao alocar memória para PrimExpr\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->unaria->primExpr->id = id;
-    expressao->unaria->primExpr->listaExpr = listaExpr;
-    expressao->unaria->primExpr->tipo = tipo;
-    expressao->next = NULL;
-
-    return expressao;
+    return primExpr;
 }
 
-Expr* criarExprConst(str* valor, TipoPrimExpr tipo) {
-    Expr* expressao = (Expr*)malloc(sizeof(Expr));
+PrimExpr* criarPrimExprConst(char* valor, EPrimExpr tipo) {
+    PrimExpr* primExpr = (PrimExpr*)malloc(sizeof(PrimExpr));
 
-    if (!expressao) {
+    if (!primExpr) {
         fprintf(stderr, "Erro ao alocar memória para Expressão Constante\n");
         exit(EXIT_FAILURE);
     }
 
-    expressao->tipo = EExpr.CONSTANTE;
-    expressao->unaria = (UnExpr*)malloc(sizeof(UnExpr));
+    primExpr->tipo = tipo;
+    primExpr->valor = valor;
 
-    if (!expressao->constante) {
-        fprintf(stderr, "Erro ao alocar memória para Constante\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->unaria->primExpr = (PrimExpr*)malloc(sizeof(PrimExpr));
-
-    expressao->unaria->primExpr->valor = valor;
-    expressao->unaria->primExpr->tipo = tipo;
-    expressao->next = NULL;
-
-    return expressao;
+    return primExpr;
 }
 
-Expr* criarExprParent(Expr* expr) {
-    Expr* expressao = (Expr*)malloc(sizeof(Expr));
+PrimExpr* criarPrimExprParent(Expr* expr) {
+    PrimExpr* primExpr = (PrimExpr*)malloc(sizeof(PrimExpr));
 
-    if (!expressao) {
+    if (!primExpr) {
         fprintf(stderr, "Erro ao alocar memória para Expressão Parêntese\n");
         exit(EXIT_FAILURE);
     }
 
-    expressao->tipo = EExpr.PARENTESE;
-    expressao->unaria = (UnExpr*)malloc(sizeof(UnExpr));
+    primExpr->tipo = EXPRESSAO;
+    primExpr->expr = expr;
 
-    if (!expressao->parentese) {
-        fprintf(stderr, "Erro ao alocar memória para Parêntese\n");
-        exit(EXIT_FAILURE);
-    }
-
-    expressao->unaria->primExpr = (PrimExpr*)malloc(sizeof(PrimExpr));
-
-    expressao->unaria->primExpr->expr = expr;
-    expressao->next = NULL;
-
-    return expressao;
+    return primExpr;
 }
 
+Expr* linkExpr(Expr* primeiro, Expr* segundo) {
+    if (primeiro == NULL) return segundo;
+
+    primeiro->next = segundo;
+
+    return primeiro;
+}
