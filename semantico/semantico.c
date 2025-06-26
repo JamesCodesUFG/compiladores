@@ -2,15 +2,16 @@
 #include <stdlib.h>
 
 #include "tree.h"
-#include "stack.h"
 #include "tipos.h"
+#include "stack.h"
+#include "semantico.h"
 
-Stack* stack;
+Stack* current_stack;
 
 void semantico_raiz(Raiz* raiz) {
     printf("Raiz encontrada.\n");
 
-    // Iniciar stack;
+    current_stack = init();
 
     DeclFuncVar* c_declFuncVar = raiz->declFuncVar;
 
@@ -21,6 +22,8 @@ void semantico_raiz(Raiz* raiz) {
     }
 
     semantico_bloco(raiz->bloco);
+
+    delete_stack(current_stack);
 }
 
 void semantico_decl_func_var(DeclFuncVar* declFuncVar) {
@@ -32,7 +35,8 @@ void semantico_decl_func_var(DeclFuncVar* declFuncVar) {
             semantico_decl_func(declFuncVar->declFunc);
             break;
         default:
-            printf("ERRO: da Tipo DeclFuncVar incorreto.\n");
+            printf("ERRO: da Tipo DeclFuncVar incorreto (%d).\n", declFuncVar->tipo);
+            delete_stack(current_stack);
             exit(1);
     }
 }
@@ -50,7 +54,8 @@ void semantico_decl_var(DeclVar* declVar) {
             // Adicionar variável na stack atual.
             break;
         default:
-            printf("ERRO: Tipo da DeclVar incorreto.\n");
+            printf("ERRO: Tipo da DeclVar incorreto (%s -> %d).\n", declVar->id, declVar->tipo);
+            delete_stack(current_stack);
             exit(1);
     }
 }
@@ -69,6 +74,7 @@ void semantico_decl_func(DeclFunc* declFunc) {
             break;
         default:
             printf("ERRO: Tipo da DeclFunc incorreto.\n");
+            delete_stack(current_stack);
             exit(1);
     }
 
@@ -93,12 +99,13 @@ void semantico_lista_parametros(ListaParametros* listaParametros) {
             break;
         default:
             printf("ERRO: Tipo da ListaParametro incorreto.\n");
+            delete_stack(current_stack);
             exit(1);
     }
 }
 
 void semantico_bloco(Bloco* bloco) {
-    printf("Bloco encontrado.");
+    printf("Bloco encontrado.\n");
 
     // Adicionar novo escopo na stack;
 
@@ -132,6 +139,7 @@ void semantico_lista_comando(ListaComando* listaComando) {
             break;
         default:
             printf("ERRO: Tipo da ListaComando incorreto.\n");
+            delete_stack(current_stack);
             exit(1);
     }
 
@@ -151,6 +159,7 @@ void semantico_comando_controle_fluxo(ComandoControleFluxo* comando) {
             break;
         default:
             printf("ERRO: Tipo da ListaComando incorreto.\n");
+            delete_stack(current_stack);
             exit(1);
     }
 
@@ -175,6 +184,7 @@ void semantico_comando_unitario(ComandoUnitario* comando) {
             break;
         default:
             printf("ERRO: Tipo da ComandoUnitario incorreto.\n");
+            delete_stack(current_stack);
             exit(1);
     }
 
@@ -194,12 +204,13 @@ void semantico_expr(Expr* expr) {
             break;
         default:
             printf("ERRO: Tipo da Expr incorreto.\n");
+            delete_stack(current_stack);
             exit(1);
     }
 }
 
 void semantico_atribuicao(Atribuicao* atribuicao) {
-    printf("Atribuicao encontrada, id = '%s'", atribuicao->id);
+    printf("Atribuicao encontrada (id = '%s').\n", atribuicao->id);
 
     // Verificar se a variável existe.
 
@@ -209,46 +220,47 @@ void semantico_atribuicao(Atribuicao* atribuicao) {
 void semantico_operador(Operador* operador) {
     switch (operador->tipo) {
         case E:
-            printf("Operador E encontrado.\n");
+            printf("--> Operador E encontrado.\n");
             break;
         case OU:
-            printf("Operador OU encontrado.\n");
+            printf("-> Operador OU encontrado.\n");
             break;
         case NAO:
             printf("Operador NAO encontrado.\n");
             break;
         case IGUALDADE:
-            printf("Operador IGUALDADE encontrado.\n");
+            printf("---> Operador IGUALDADE encontrado.\n");
             break;
         case DIFERENCA:
-            printf("Operador DIFERENCA encontrado.\n");
+            printf("---> Operador DIFERENCA encontrado.\n");
             break;
         case MAIOR_QUE:
-            printf("Operador MAIOR_QUE encontrado.\n");
+            printf("----> Operador MAIOR_QUE encontrado.\n");
             break;
         case MENOR_QUE:
-            printf("Operador MENOR_QUE encontrado.\n");
+            printf("----> Operador MENOR_QUE encontrado.\n");
             break;
         case MAIOR_IGUAL:
-            printf("Operador MAIOR_IGUAL encontrado.\n");
+            printf("----> Operador MAIOR_IGUAL encontrado.\n");
             break;
         case MENOR_IGUAL:
-            printf("Operador MENOR_IGUAL encontrado.\n");
+            printf("----> Operador MENOR_IGUAL encontrado.\n");
             break;
         case MAIS:
-            printf("Operador MAIS encontrado.\n");
+            printf("-----> Operador MAIS encontrado.\n");
             break;
         case MENOS:
-            printf("Operador MENOS encontrado.\n");
+            printf("-----> Operador MENOS encontrado.\n");
             break;
         case MULTIPLICACAO:
-            printf("Operador MULTIPLICACAO encontrado.\n");
+            printf("------> Operador MULTIPLICACAO encontrado.\n");
             break;
         case DIVISAO:
-            printf("Operador DIVISAO encontrado.\n");
+            printf("------> Operador DIVISAO encontrado.\n");
             break;
         default:
             printf("ERRO: Tipo da Operador incorreto.\n");
+            delete_stack(current_stack);
             exit(1);
     }
 
@@ -260,12 +272,16 @@ void semantico_un_expr(UnExpr* unExpr) {
     switch (unExpr->tipo) {
         case NONE:
             printf("Expressao unaria NONE encontrado.\n");
+            break;
         case NEGATIVO:
             printf("Expressao unaria NEGATIVO encontrado.\n");
+            break;
         case NEGACAO:
             printf("Expressao unaria NEGACAO encontrado.\n");
+            break;
         default:
             printf("ERRO: Tipo da UnExpr incorreto.\n");
+            delete_stack(current_stack);
             exit(1);
     }
 
@@ -294,6 +310,7 @@ void semantico_prim_expr(PrimExpr* primExpr) {
             break;
         default:
             printf("ERRO: Tipo da PrimExpr incorreto.\n");
+            delete_stack(current_stack);
             exit(1);
     }
 }
@@ -305,5 +322,5 @@ void semantico_chamada(Chamada chamada) {
     // Caseo listaExpr não seja vazia, verificar se quantidade parametros correto.
     // Percorrer arvore para construir dicionario e então contar quantidade de parametros.
 
-    semantico_expr(chamada.listaExpr);
+    if (chamada.listaExpr != NULL) semantico_expr(chamada.listaExpr);
 }

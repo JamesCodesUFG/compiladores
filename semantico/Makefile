@@ -1,12 +1,15 @@
 CC = gcc
-CFLAGS =   -g  -Wall -ansi
+CFLAGS =   -g  -Wall
 LFLAGS = -lm
  
-goianinha: sintatico.o lexico.o main.o tree.o stack.o
-	$(CC) $(CFLAGS) $(LFLAGS) lexico.o sintatico.o tree.o stack.o main.o -o goianinha
+goianinha: sintatico.o lexico.o main.o tree.o semantico.o stack.o
+	$(CC) $(CFLAGS) $(LFLAGS) lexico.o sintatico.o tree.o semantico.o stack.o main.o -o goianinha
 
 stack.o: stack.c
 	$(CC) $(CFLAGS) $(FLAGS) -c stack.c -o stack.o
+
+semantico.o: semantico.c
+	$(CC) $(CFLAGS) $(FLAGS) -c semantico.c -o semantico.o
 
 tree.o: tree.c
 	$(CC) $(CFLAGS) $(FLAGS) -c tree.c -o tree.o

@@ -60,13 +60,18 @@ DeclFuncVar* criarVariavelComTipo(ETipo tipo, char* id, DeclFuncVar* filhos, Dec
 
     DeclFuncVar* current = filhos;
 
-    while (current->next != NULL) {
+    while (1) {
         current->declVar->tipo = tipo;
         
+        if (current->next == NULL) {
+            current->next = next;
+            break;
+        }
+
         current = current->next;
     }
 
-    current->next = next;
+    
 
     return decl;
 }
@@ -172,6 +177,7 @@ ListaComando* criarComandoUnitario(Expr* expr, EComandoUnitario tipo) {
         exit(EXIT_FAILURE);
     }
 
+    comando->comandoUnitario->tipo = tipo;
     comando->comandoUnitario->expr = expr;
     comando->next = NULL;
 

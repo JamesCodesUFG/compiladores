@@ -1,31 +1,28 @@
-#ifndef STACK_H
-#define STACK_H
+#ifndef _STACK_H
+#define _STACK_H
 
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
 
-    // -------------------- ENUM --------------------
     typedef enum { S_TIPO_INT, S_TIPO_STR } STipo;
 
     typedef enum { L_FUNCTION, L_VARIABLE, L_PARAMETER } LexemaTipo;
 
-    // -------------------- STRUCTS & UNIONS --------------------
-
     typedef struct {
-        StackVarTipo tipo;
+        STipo tipo;
         int index;
         char* id;
     } Variable;
 
     typedef struct {
-        StackVarTipo tipo;
+        STipo tipo;
         int n_params;
         char* id;
     } Function;
 
     typedef struct {
-        StackVarTipo tipo;
+        STipo tipo;
         Function* owner;
         int index;
         char* id;
@@ -33,23 +30,22 @@
 
     typedef struct {
         LexemaTipo tipo;
-        typedef union {
+        union {
             Variable var;
             Function func;
             Parameter param;
-        }
+        };
     } Lexema;
 
     typedef struct Stack {
         int n_lexema;
 
-        Lexeme** lexemas;
+        Lexema** lexemas;
 
         struct Stack* child;
         struct Stack* parent;
     } Stack;
 
-    // -------------------- FUNCTIONS -------------------- //
     Stack* init();
 
     Stack* up(Stack* current);

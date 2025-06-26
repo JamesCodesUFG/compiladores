@@ -4,6 +4,8 @@
 
 #include "tree.h"
 #include "tipos.h"
+#include "stack.h"
+#include "semantico.h"
 
 #include "goianinha.tab.h"
 
@@ -24,6 +26,8 @@ int main(int argc, char** argv) {
     yyin = fopen(argv[1], "r");
 
     yyparse();
+
+    semantico_raiz(arvore_final);
 
     return 0;
 }

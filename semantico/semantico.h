@@ -5,10 +5,8 @@
 #include <stdlib.h>
 
 #include "tree.h"
-#include "stack.h"
 #include "tipos.h"
-
-Stack* stack;
+#include "stack.h"
 
 void semantico_raiz(Raiz* raiz);
 

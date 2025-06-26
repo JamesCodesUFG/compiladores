@@ -30,7 +30,7 @@ typedef enum { CHAMADA_VAR, CHAMADA_FUNC, CONST_STR, CONST_INT, EXPRESSAO } EPri
 typedef struct Chamada {
     char* id;
     Expr* listaExpr;
-} ChamadaFunc;
+} Chamada;
 
 typedef struct PrimExpr {
     EPrimExpr tipo;
